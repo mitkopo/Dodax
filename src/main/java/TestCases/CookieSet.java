@@ -19,10 +19,10 @@ import java.util.Set;
 
 public class CookieSet {
     static WebDriver driver;
-    private static Logger log =LogManager.getLogger(CookieSet.class.getName());
-homepagefactory homepagePF;
-noSearchResultFactory nosearchPF;
-SearchResultFactory searchPF;
+    private static Logger log = LogManager.getLogger(CookieSet.class.getName());
+    homepagefactory homepagePF;
+    noSearchResultFactory nosearchPF;
+    SearchResultFactory searchPF;
     //homepage hp = new homepage(driver);
 
 
@@ -41,44 +41,42 @@ SearchResultFactory searchPF;
     }
 
     @Test(priority = 0)
-    public void privacyPF(){
+    public void privacyPF() {
 
-            homepagePF.setPrivacyPF();
-
-
+        homepagePF.setPrivacyPF();
         Set<Cookie> noCookies = driver.manage().getCookies();
         homepagePF.isLoadedPF();
         Set<Cookie> cookiesBeforeClick = homepagePF.getCookies();
-           homepagePF.getCookies();
-         //   homepagePF.windowsHandlessChild();
-            homepagePF.clickCookiesPF();
-        //   homepagePF.windowsHandlessParent();
-            homepagePF.clickCookiesPF();
-            homepagePF.getCookies();
+        homepagePF.getCookies();
+        homepagePF.windowsHandlessChild();
+        homepagePF.clickCookiesPF();
+        homepagePF.windowsHandlessParent();
+        homepagePF.clickCookiesPF();
+        homepagePF.getCookies();
         Set<Cookie> cookiesAfterClick = homepagePF.getCookies();
         Assert.assertNotEquals(cookiesBeforeClick, cookiesAfterClick);
 
         Set<Cookie> cookiess = driver.manage().getCookies();
-      Assert.assertNotEquals(noCookies, cookiess);
+        Assert.assertNotEquals(noCookies, cookiess);
 
 
     }
 
     @Test(priority = 1)
 
-    public void non_existing_product(){
+    public void non_existing_product() {
         homepagePF.searchBoxText("kkttpp");
         homepagePF.pressEnterSearhBox();
         nosearchPF.emptySearchResult();
         nosearchPF.isBackButtonDisplayed();
         nosearchPF.isCarouselDisplayed();
-        String urlToCheck= nosearchPF.isLoaded();
+        String urlToCheck = nosearchPF.isLoaded();
         String bc = nosearchPF.isLoaded();
         nosearchPF.isLoaded();
         nosearchPF.clickBackButton();
-        String currentURL= driver.getCurrentUrl();
-        Assert.assertEquals(urlToCheck,currentURL);
-        Assert.assertEquals(bc,nosearchPF.currentURL());
+        String currentURL = driver.getCurrentUrl();
+        Assert.assertEquals(urlToCheck, currentURL);
+        Assert.assertEquals(bc, nosearchPF.currentURL());
 
     }
 
@@ -87,6 +85,7 @@ SearchResultFactory searchPF;
     public void footerLinks() throws InterruptedException {
         homepagePF.linksToClick1();
     }
+
     @Test(priority = 3)
     public void checkDomains() throws InterruptedException {
 
@@ -96,7 +95,7 @@ SearchResultFactory searchPF;
 
     @AfterTest
 
-    public void tearDown(){
-       driver.quit();
+    public void tearDown() {
+        driver.quit();
     }
 }

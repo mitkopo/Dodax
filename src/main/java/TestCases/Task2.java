@@ -38,6 +38,7 @@ public class Task2 {
 
     @Test
     public void test1() {
+        homepagePF.clickCookiesPF();
         loginPF.notloggedIn();
         loginPF.emailInput("botearnasp@gmail.com");
         loginPF.passInput("Popokatepeltel1@");
@@ -111,7 +112,7 @@ public class Task2 {
 
 
     @Test
-    public void test3()  {
+    public void test3() {
 
         loginPF.notloggedIn();
         loginPF.clickForgotpassButton();
@@ -123,7 +124,7 @@ public class Task2 {
 
     @Test
     public void test4() {
-        homepagePF.clickCookiesPF();
+
         loginPF.notloggedIn();
         loginPF.clickSignUpForFree();
         registerPF.inputFirstName("Test");
@@ -139,7 +140,7 @@ public class Task2 {
     @AfterTest
 
     public void tearDown() {
-        // driver.quit();
+        driver.quit();
     }
 
 }

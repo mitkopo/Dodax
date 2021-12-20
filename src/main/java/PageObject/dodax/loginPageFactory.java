@@ -24,6 +24,9 @@ public class loginPageFactory {
     @FindBy(css = "[data-qa=\"loginPasswordRecoveryLink\"]")
     WebElement forgotpassButton;
 
+    @FindBy(css = "[data-qa=\"signUpLink\"]")
+    WebElement signUp;
+
     public loginPageFactory(WebDriver driver){
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -68,5 +71,9 @@ public class loginPageFactory {
 
     public void clickForgotpassButton(){
         forgotpassButton.click();
+    }
+
+    public void clickSignUpForFree(){
+        signUp.click();
     }
 }

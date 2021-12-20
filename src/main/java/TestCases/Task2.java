@@ -11,10 +11,11 @@ import org.testng.annotations.Test;
 public class Task2 {
     static WebDriver driver;
     loginPageFactory loginPF;
-    homepagefactory homepagePF;
-    categories categoryPF;
-    shoppingCart scPF;
+    homepagePageFactory homepagePF;
+    categoriesPageFactory categoryPF;
+    shoppingCartPageFactory scPF;
     resetPasswordPageFactory resetPassPF;
+    registrationPageFactory registerPF;
 
     @BeforeTest
     public void setUp() {
@@ -25,11 +26,11 @@ public class Task2 {
 
 
         loginPF = new loginPageFactory(driver);
-        homepagePF = new homepagefactory(driver);
-        categoryPF = new categories(driver);
-        scPF = new shoppingCart(driver);
+        homepagePF = new homepagePageFactory(driver);
+        categoryPF = new categoriesPageFactory(driver);
+        scPF = new shoppingCartPageFactory(driver);
         resetPassPF = new resetPasswordPageFactory(driver);
-
+        registerPF = new registrationPageFactory(driver);
 
         driver.get(baseURL);
         driver.manage().window().maximize();
@@ -120,6 +121,20 @@ public class Task2 {
         resetPassPF.isEmailMessageDisplayed();
     }
 
+    @Test
+    public void test4() {
+        homepagePF.clickCookiesPF();
+        loginPF.notloggedIn();
+        loginPF.clickSignUpForFree();
+        registerPF.inputFirstName("Test");
+        registerPF.inputLastName("Testorovski");
+        registerPF.inputEmail("avazalijam@gmail.com");
+        registerPF.inputPass("Popokatepetel123!@");
+        registerPF.clickRegisterButton();
+        registerPF.checkBoxMessage();
+
+
+    }
 
     @AfterTest
 

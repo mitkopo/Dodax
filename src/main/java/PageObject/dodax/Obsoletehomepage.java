@@ -4,10 +4,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class homepage {
+public class Obsoletehomepage {
     WebDriver driver;
 
-    public homepage(WebDriver driver) {
+    public Obsoletehomepage(WebDriver driver) {
         this.driver = driver;
     }
 
@@ -26,7 +26,7 @@ public class homepage {
 
     }
 
-    By copyRight = By.cssSelector("div.ft-copyright");
+    By copyRight = By.cssSelector("div.ft-opyright");
 
     public WebElement copyRight() {
         return driver.findElement(copyRight);

@@ -1,6 +1,6 @@
 package TestCases;
 
-import PageObject.dodax.homepagefactory;
+import PageObject.dodax.homepagePageFactory;
 import PageObject.dodax.noSearchResultFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,7 +19,7 @@ import java.util.Set;
 public class homePage {
     static WebDriver driver;
     private static Logger log = LogManager.getLogger(homePage.class.getName());
-    homepagefactory homepagePF;
+    homepagePageFactory homepagePF;
     noSearchResultFactory nosearchPF;
 
 
@@ -29,7 +29,7 @@ public class homePage {
         System.setProperty("webdriver.chrome.driver", "C:exe\\chromedriver.exe");
         driver = new ChromeDriver();
         String baseURL = "https://www.dodax.ca";
-        homepagePF = new homepagefactory(driver);
+        homepagePF = new homepagePageFactory(driver);
         nosearchPF = new noSearchResultFactory(driver);
         driver.get(baseURL);
         driver.manage().window().maximize();

@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-public class homepagefactory {
+public class homepagePageFactory {
 
     WebDriver driver;
 
@@ -41,7 +41,7 @@ public class homepagefactory {
 
 
 
-    public homepagefactory(WebDriver driver) {
+    public homepagePageFactory(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }

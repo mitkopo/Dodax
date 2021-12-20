@@ -9,15 +9,15 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.List;
 import java.util.Random;
 
-public class categories {
+public class categoriesPageFactory {
     WebDriver driver;
 
-    @FindBy(xpath = "//div[@class=\"cat-categories\"]//a")
+    @FindBy(xpath = "//div[@class=\"cat-categoriesPageFactory\"]//a")
     List<WebElement> allCategories;
 
     @FindBy(css = "[class=\"img-fluid\"]")
     List <WebElement> products;
-    public categories(WebDriver driver){
+    public categoriesPageFactory(WebDriver driver){
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }

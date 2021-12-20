@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-public class homepagefactory<footerlinks> {
+public class homepagefactory {
 
     WebDriver driver;
 
@@ -30,8 +30,16 @@ public class homepagefactory<footerlinks> {
     @FindBy(xpath = "//ul[@class='list-unstyled d-flex flex-wrap fs-16']//a")
     List<WebElement> domains;
 
+    @FindBy(css = "[data-qa=\"headerUserAccountPopUpLogoutLink\"]")
+    WebElement logOutButton;
 
-    String location;
+    @FindBy(css = "[data-qa=\"headerCategoriesOpenBtnDesktop\"]")
+    WebElement categoryS1;
+
+    @FindBy(css = "[data-qa=\"headerCategoriesTreeTitleLink\"]")
+    WebElement categoryS2;
+
+
 
     public homepagefactory(WebDriver driver) {
         this.driver = driver;
@@ -49,13 +57,11 @@ public class homepagefactory<footerlinks> {
 
 
     public boolean isLoadedPF() {
-        boolean bc = copyrightPF.isDisplayed();
-        return bc;
+        return copyrightPF.isDisplayed();
     }
 
     public Set<Cookie> getCookies() {
-        Set<Cookie> Cookies = driver.manage().getCookies();
-        return Cookies;
+        return driver.manage().getCookies();
 
     }
 
@@ -103,11 +109,13 @@ public class homepagefactory<footerlinks> {
 
     }
 
+
+
     public String currentURL() {
         return driver.getCurrentUrl();
     }
 
-    public void linksToClick1() throws InterruptedException {
+    public void linksToClick() {
 
         JavascriptExecutor executor = (JavascriptExecutor) driver;
         String sfooterLinks;
@@ -120,14 +128,14 @@ public class homepagefactory<footerlinks> {
             if (windowsSize > 1) {
 
                 windowsHandlessChild();
-                Thread.sleep(3000);
+
                 if (currentURL().equals(sfooterLinks)) {
                     // Assert.assertEquals(currentURL(),secondLinks);
                     driver.close();
                     windowsHandlessParent();
                 }
             }
-          else currentURL().equals(sfooterLinks);
+          else  currentURL().equals(sfooterLinks);
         }
     }
 
@@ -141,6 +149,14 @@ public class homepagefactory<footerlinks> {
             driver.navigate().back();
             }
         }
+    }
+    public void logOut(){
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
+        executor.executeScript("arguments[0].click();",logOutButton);
+    }
+    public void openCategory(){
+        categoryS1.click();
+        categoryS2.click();
     }
 }
 

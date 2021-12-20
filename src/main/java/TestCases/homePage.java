@@ -1,6 +1,5 @@
 package TestCases;
 
-import PageObject.dodax.SearchResultFactory;
 import PageObject.dodax.homepagefactory;
 import PageObject.dodax.noSearchResultFactory;
 import org.apache.logging.log4j.LogManager;
@@ -17,13 +16,11 @@ import org.testng.annotations.Test;
 import java.time.Duration;
 import java.util.Set;
 
-public class CookieSet {
+public class homePage {
     static WebDriver driver;
-    private static Logger log = LogManager.getLogger(CookieSet.class.getName());
+    private static Logger log = LogManager.getLogger(homePage.class.getName());
     homepagefactory homepagePF;
     noSearchResultFactory nosearchPF;
-    SearchResultFactory searchPF;
-    //homepage hp = new homepage(driver);
 
 
     @BeforeTest
@@ -36,7 +33,7 @@ public class CookieSet {
         nosearchPF = new noSearchResultFactory(driver);
         driver.get(baseURL);
         driver.manage().window().maximize();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait  wait = new WebDriverWait(driver, Duration.ofSeconds(3));
 
     }
 
@@ -46,14 +43,15 @@ public class CookieSet {
         homepagePF.setPrivacyPF();
         Set<Cookie> noCookies = driver.manage().getCookies();
         homepagePF.isLoadedPF();
-        Set<Cookie> cookiesBeforeClick = homepagePF.getCookies();
+        Set cookiesBeforeClick = homepagePF.getCookies();
         homepagePF.getCookies();
         homepagePF.windowsHandlessChild();
         homepagePF.clickCookiesPF();
         homepagePF.windowsHandlessParent();
         homepagePF.clickCookiesPF();
         homepagePF.getCookies();
-        Set<Cookie> cookiesAfterClick = homepagePF.getCookies();
+
+        Set cookiesAfterClick = homepagePF.getCookies();
         Assert.assertNotEquals(cookiesBeforeClick, cookiesAfterClick);
 
         Set<Cookie> cookiess = driver.manage().getCookies();
@@ -70,9 +68,9 @@ public class CookieSet {
         nosearchPF.emptySearchResult();
         nosearchPF.isBackButtonDisplayed();
         nosearchPF.isCarouselDisplayed();
-        String urlToCheck = nosearchPF.isLoaded();
-        String bc = nosearchPF.isLoaded();
-        nosearchPF.isLoaded();
+        String urlToCheck = nosearchPF.emptySearchBackButton();
+        String bc = nosearchPF.emptySearchBackButton();
+        nosearchPF.emptySearchBackButton();
         nosearchPF.clickBackButton();
         String currentURL = driver.getCurrentUrl();
         Assert.assertEquals(urlToCheck, currentURL);
@@ -83,19 +81,23 @@ public class CookieSet {
 
     @Test(priority = 2)
     public void footerLinks() throws InterruptedException {
-        homepagePF.linksToClick1();
+        homepagePF.linksToClick();
+
     }
 
     @Test(priority = 3)
-    public void checkDomains() throws InterruptedException {
+    public void checkDomains() {
 
         homepagePF.domains();
 
     }
+
 
     @AfterTest
 
     public void tearDown() {
         driver.quit();
     }
+
+
 }

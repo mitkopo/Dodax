@@ -42,7 +42,7 @@ public class noSearchResultFactory {
     public boolean emptySearchResult(){
         return emptySearchResult.isDisplayed();
     }
-    public String isLoaded(){
+    public String emptySearchBackButton(){
         return emptySearchBackButton.getAttribute("href");
 
 

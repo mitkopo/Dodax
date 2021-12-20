@@ -2,7 +2,10 @@
 <suite name="Dodax">
 <test name="Frontpage">
     <classes>
-        <class name="TestCases.CookieSet">
+        <class name="TestCases.homePage"></class>
+        <class name="TestCases.Task2">
+
+
 
         </class>
     </classes>

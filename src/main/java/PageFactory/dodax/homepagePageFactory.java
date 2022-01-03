@@ -128,9 +128,8 @@ public class homepagePageFactory {
     }
 
     public String currentURL() {
-        String currentURL = driver.getCurrentUrl();
 
-        return currentURL;
+        return driver.getCurrentUrl();
     }
 
     public Boolean linksToClick() {
@@ -209,7 +208,7 @@ public class homepagePageFactory {
 
     public void test2(){
         JavascriptExecutor executor = (JavascriptExecutor) driver;
-        executor.executeScript("arguments[0].click();", categoryS2);;
+        executor.executeScript("arguments[0].click();", categoryS2);
     }
 
     public void openCategory() {

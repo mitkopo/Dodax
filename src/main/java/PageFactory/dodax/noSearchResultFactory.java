@@ -1,4 +1,4 @@
-package PageObject.dodax;
+package PageFactory.dodax;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -22,8 +22,8 @@ public class noSearchResultFactory {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
-    public Object currentURL(){
-        Object currentURL = driver.getCurrentUrl();
+    public String currentURL(){
+        String currentURL = driver.getCurrentUrl();
         return currentURL;
     }
 
@@ -42,9 +42,11 @@ public class noSearchResultFactory {
     public boolean emptySearchResult(){
         return emptySearchResult.isDisplayed();
     }
-    public String emptySearchBackButton(){
-        return emptySearchBackButton.getAttribute("href");
 
+
+    public String emptySearchBackButton(){
+         String href = emptySearchBackButton.getAttribute("href");
+    return href;
 
 
     }

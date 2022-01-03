@@ -1,12 +1,14 @@
-package PageObject.dodax;
+package PageFactory.dodax;
 
+import base.baseClass;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 
-public class loginPageFactory {
+public class loginPageFactory extends baseClass {
     WebDriver driver;
 
     @FindBy(css = "[data-qa=\"headerUserNotLoggedIn\"]")
@@ -62,11 +64,8 @@ public class loginPageFactory {
 
         }
     }
-    public String getCurrentUrl(){
+    public String urlAfterLogin(){
       return  driver.getCurrentUrl();
-    }
-    public String geturrentUrl(){
-        return  driver.getCurrentUrl();
     }
 
     public void clickForgotpassButton(){
@@ -75,5 +74,27 @@ public class loginPageFactory {
 
     public void clickSignUpForFree(){
         signUp.click();
+    }
+    public String urlBeforeLogIn() {
+        String currentURL = driver.getCurrentUrl();
+        return currentURL;
+    }
+
+
+    public void e2eLoginOnSamePage(){
+       urlBeforeLogIn();
+        notloggedIn();
+       emailInput("botearnasp@gmail.com");
+        passInput("Popokatepeltel1@");
+        loginButton();
+        urlAfterLogin();
+        Assert.assertEquals(urlBeforeLogIn(),urlAfterLogin());
+        verifyLogIn();
+    }
+
+    public void logIn(){
+        emailInput("botearnasp@gmail.com");
+        passInput("Popokatepeltel1@");
+        loginButton();
     }
 }

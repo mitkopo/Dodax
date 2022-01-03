@@ -1,4 +1,4 @@
-package PageObject.dodax;
+package PageFactory.dodax;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

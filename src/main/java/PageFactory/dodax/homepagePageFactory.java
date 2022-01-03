@@ -1,0 +1,253 @@
+package PageFactory.dodax;
+
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
+public class homepagePageFactory {
+
+    WebDriver driver;
+    WebDriverWait wait;
+
+    @FindBy(css = "a.c-cookiesDisclaimer__link")
+    WebElement privacyPF;
+
+    @FindBy(css = "button[data-qa='cookiesAgreementAcceptBtn']")
+    WebElement cookiesPF;
+
+    @FindBy(css = "div.ft-copyright")
+    WebElement copyrightPF;
+
+    @FindBy(css = "input")
+    WebElement searchBox;
+
+    @FindBy(xpath = "//div[@class='ft-footer__column col-12 col-sm-6']//a")
+    List<WebElement> footerlinks;
+
+    @FindBy(xpath = "//ul[@class='list-unstyled d-flex flex-wrap fs-16']//a")
+    List<WebElement> domains;
+
+    @FindBy(css = "[data-qa=\"headerUserAccountPopUpLogoutLink\"]")
+    WebElement logOutButton;
+
+    @FindBy(css = "[data-qa=\"headerCategoriesOpenBtnDesktop\"]")
+    WebElement categoryTree;
+
+    @FindBy(css = "[data-qa=\"headerCategoriesTreeBtnAll\"]")
+    WebElement backToAllCategories;
+
+    @FindBy(css = "[data-qa=\"headerCategoriesTreeTitleLink\"]")
+    WebElement categoryS2;
+
+    @FindBy(css = "[data-id=\"050C7861CF\"]")
+    WebElement categoryMovies;
+
+    @FindBy(xpath = "//div[@class=\"js-hd-nav__levelContent\"]//b")
+    WebElement subCatShowAllProducts;
+
+    @FindBy(css = "[data-qa=\"headerWishlistLink\"]")
+    WebElement wishListButton;
+
+    @FindBy(css = "[class=\"hd-header__container js-bodyScroller__padding\"]")
+    WebElement obseleteClick;
+
+    public homepagePageFactory(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+        //wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+    }
+
+    public void setPrivacyPF() {
+        privacyPF.click();
+
+    }
+
+    public void clickCookiesPF() {
+        cookiesPF.click();
+    }
+
+
+    public boolean isLoadedPF() {
+        return copyrightPF.isDisplayed();
+    }
+
+    public Set<Cookie> getCookies() {
+        return driver.manage().getCookies();
+
+    }
+
+//    public static String getMainWindowHandle(WebDriver driver) {
+//        String window;
+//        return  window = driver.getWindowHandle();
+//    }
+//
+//    public static void waitForNewWindowAndSwitchToIt(WebDriver driver) throws InterruptedException {
+//        String cHandle = driver.getWindowHandle();
+//        String newWindowHandle = null;
+//        Set<String> allWindowHandles = driver.getWindowHandles();
+//        if (allWindowHandles.size() > 1) {
+//            for (String allHandlers : allWindowHandles) {
+//                if (!allHandlers.equals(cHandle))
+//                    newWindowHandle = allHandlers;
+//            }
+//            driver.switchTo().window(newWindowHandle);
+//             }}
+
+    public void windowsHandlessChild() {
+        Set<String> windows = driver.getWindowHandles();
+        Iterator<String> it = windows.iterator();
+        String parentId = it.next();
+        String childId = it.next();
+        driver.switchTo().window(childId);
+    }
+
+    //
+    public void windowsHandlessParent() {
+        Set<String> windows = driver.getWindowHandles();
+        Iterator<String> it = windows.iterator();
+        String parentId = it.next();
+        //String childId = it.next();
+        driver.switchTo().window(parentId);
+    }
+
+    public void searchBoxText(String text) {
+        searchBox.sendKeys(text);
+
+    }
+
+    public void pressEnterSearhBox() {
+        searchBox.sendKeys(Keys.ENTER);
+
+    }
+
+    public String currentURL() {
+        String currentURL = driver.getCurrentUrl();
+
+        return currentURL;
+    }
+
+    public Boolean linksToClick() {
+
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
+        String sfooterLinks;
+        Boolean equals = null;
+        try {
+            for (int i = 0; footerlinks.size() > i; i++) {
+
+                sfooterLinks = footerlinks.get(i).getAttribute("href");
+                executor.executeScript("arguments[0].click();", footerlinks.get(i));
+                Set<String> windows = driver.getWindowHandles();
+                int windowsSize = windows.size();
+                if (windowsSize > 1) {
+
+                    windowsHandlessChild();
+
+                    if (currentURL().equals(sfooterLinks)) {
+                        // Assert.assertEquals(currentURL(),secondLinks);
+                        System.out.println("If block The link is good ");
+                        System.out.println(driver.getCurrentUrl());
+                        System.out.println(sfooterLinks);
+                        driver.close();
+                        windowsHandlessParent();
+                        equals = true;
+                    }
+                }
+                if (currentURL().equals(sfooterLinks)) {
+                    equals = true;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Problem");
+            equals = false;
+        }
+        return equals;
+    }
+
+
+    public boolean domains() {
+
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
+        String domainLinks;
+
+        Boolean equals = null;
+        try {
+            for (int i = 0; domains.size() > i; i++) {
+                domainLinks = domains.get(i).getAttribute("href");
+
+                executor.executeScript("arguments[0].click();", domains.get(i));
+
+                if (currentURL().contains(domainLinks)) {
+                    System.out.println("The link is good");
+                    driver.navigate().back();
+                    equals = true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            equals = false;
+        }
+        return equals;
+
+    }
+
+    public void logOut() {
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
+        executor.executeScript("arguments[0].click();", logOutButton);
+    }
+
+    public void openCategoryAll() {
+        categoryTree.click();
+        categoryS2.click();
+    }
+
+    public void test2(){
+        categoryS2.click();
+    }
+
+    public void openCategory() {
+        categoryTree.click();
+    }
+
+    public void openCatMovies() {
+        categoryMovies.click();
+    }
+
+    public void openSubCatTree() {
+        subCatShowAllProducts.click();
+    }
+
+    public void waitForTree() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        wait.until(ExpectedConditions.visibilityOf(subCatShowAllProducts));
+    }
+
+    public void clickWishListButton() {
+        wishListButton.click();
+    }
+
+    public void clickBackToAllcat(){
+        backToAllCategories.click();
+    }
+
+    public void moveToBottom() {
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
+        executor.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+
+    }
+
+    public void obsoleteClick() {
+        obseleteClick.click();
+    }
+}
+
+
+
+
+

@@ -1,0 +1,95 @@
+package TestCases;
+
+import PageFactory.dodax.SearchResultFactory;
+import PageFactory.dodax.homepagePageFactory;
+import PageFactory.dodax.noSearchResultFactory;
+import base.baseClass;
+import org.openqa.selenium.Cookie;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import java.util.Set;
+
+public class HomePage_tests extends baseClass {
+
+    //private static Logger log = LogManager.getLogger(homePage.class.getName());
+
+
+    @Test(priority = 0)
+    public void privacyPF() {
+        homepagePageFactory homepagePF = new homepagePageFactory(driver);
+
+
+        homepagePF.setPrivacyPF();
+        Set<Cookie> noCookies = driver.manage().getCookies();
+        homepagePF.isLoadedPF();
+        Set cookiesBeforeClick = homepagePF.getCookies();
+        homepagePF.getCookies();
+        homepagePF.windowsHandlessChild();
+        homepagePF.clickCookiesPF();
+        homepagePF.windowsHandlessParent();
+        homepagePF.clickCookiesPF();
+        homepagePF.getCookies();
+
+        Set cookiesAfterClick = homepagePF.getCookies();
+        Assert.assertNotEquals(cookiesBeforeClick, cookiesAfterClick);
+
+        Set<Cookie> cookiess = driver.manage().getCookies();
+        Assert.assertNotEquals(noCookies, cookiess);
+
+
+    }
+
+    @Test(priority = 1)
+
+    public void non_existing_product() {
+        homepagePageFactory homepagePF = new homepagePageFactory(driver);
+        noSearchResultFactory nosearchPF = new noSearchResultFactory(driver);
+
+        homepagePF.searchBoxText("kkttpp");
+        homepagePF.pressEnterSearhBox();
+        nosearchPF.emptySearchResult();
+        nosearchPF.isBackButtonDisplayed();
+        nosearchPF.isCarouselDisplayed();
+        nosearchPF.emptySearchBackButton();
+        String urlBefore = nosearchPF.emptySearchBackButton();
+        nosearchPF.clickBackButton();
+        Assert.assertEquals(urlBefore, nosearchPF.currentURL());
+    }
+
+
+    @Test(priority = 2)
+    public void footerLinks() {
+        homepagePageFactory homepagePF = new homepagePageFactory(driver);
+
+        Assert.assertTrue(homepagePF.linksToClick());
+
+    }
+
+    @Test(priority = 3)
+    public void checkDomains() {
+        homepagePageFactory homepagePF = new homepagePageFactory(driver);
+
+        Assert.assertTrue(homepagePF.domains());
+
+    }
+
+    @Test
+    public void addToCart() {
+
+        homepagePageFactory homepagePF = new homepagePageFactory(driver);
+        SearchResultFactory searchPF = new SearchResultFactory(driver);
+
+
+        homepagePF.clickCookiesPF();
+        homepagePF.searchBoxText("5SV0AJ4QUFK");
+        homepagePF.pressEnterSearhBox();
+        searchPF.clickFisrtSearchResult();
+
+
+    }
+
+}
+
+
+

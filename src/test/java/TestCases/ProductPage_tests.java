@@ -1,0 +1,73 @@
+package TestCases;
+
+import PageFactory.dodax.*;
+import base.baseClass;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+public class ProductPage_tests extends baseClass {
+
+    @Test
+    public void viewPPD(){
+        homepagePageFactory homepagePF = new homepagePageFactory(driver);
+        categoriesPageFactory catPF = new categoriesPageFactory(driver);
+
+        homepagePF.openCategory();
+        homepagePF.openCatMovies();
+        homepagePF.waitForTree();
+        homepagePF.openSubCatTree();
+        String urlToCheck = catPF.getRandProducthref();
+
+
+
+      Assert.assertEquals(urlToCheck,catPF.currentURL());
+        System.out.println(urlToCheck);
+        System.out.println(catPF.currentURL());
+
+    }
+
+    @Test
+    public void addToCart()   {
+
+        homepagePageFactory homepagePF = new homepagePageFactory(driver);
+        SearchResultFactory searchPF = new SearchResultFactory(driver);
+        productDetailsPageFactory productPF = new productDetailsPageFactory(driver);
+        shoppingCartPageFactory shopingCardPF = new shoppingCartPageFactory(driver);
+
+        homepagePF.clickCookiesPF();
+        homepagePF.searchBoxText("5SV0AJ4QUFK");
+        homepagePF.pressEnterSearhBox();
+        searchPF.clickFisrtSearchResult();
+        Assert.assertTrue(productPF.isAddToCartDisplayed());
+        String itemCartSizeBeforeAdd = productPF.getCartItemSize() ;
+        productPF.quantatyPlusButton();
+        String product = productPF.pageTitle();
+        System.out.println(product);
+        productPF.addToCartButton();
+        productPF.waitForCart();
+        productPF.iSCartItemSizeDisplayed();
+        Assert.assertFalse(itemCartSizeBeforeAdd.equals(productPF.getCartItemSize()));
+        productPF.viewShoppingCart();
+        Assert.assertTrue(product.contains(shopingCardPF.cartItemText()));
+    }
+
+
+    @Test
+    public void addToWishList()  {
+        productDetailsPageFactory productPF = new productDetailsPageFactory(driver);
+        loginPageFactory logInPF = new loginPageFactory(driver);
+        homepagePageFactory homePF = new homepagePageFactory(driver);
+        wishListPageFactory wishPF = new wishListPageFactory(driver);
+
+
+        viewPPD();
+        productPF.clickWishButton();
+        productPF.waitForElement();
+        productPF.clickWishLoginButton();
+        logInPF.logIn();
+        String product= productPF.getDataProductId();
+        homePF.clickWishListButton();
+        Assert.assertEquals(product,wishPF.getFirstWishListProductDetails());
+
+    }
+}

@@ -2,8 +2,8 @@
 <suite name="Dodax">
 <test name="Frontpage">
     <classes>
-        <class name="TestCases.homePage"></class>
-        <class name="TestCases.Task2">
+        <class name="TestCases.HomePage_tests"></class>
+        <class name="TestCases.Login_tests">
 
 
 

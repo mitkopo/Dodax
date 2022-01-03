@@ -9,30 +9,31 @@ import org.testng.annotations.Test;
 public class Catalog_tests extends baseClass {
 
     @Test
-    public void catalogPageListView() throws InterruptedException {
+    public void catalogPageListView()  {
         homepagePageFactory homepagePF = new homepagePageFactory(driver);
         categoriesPageFactory catPF = new categoriesPageFactory(driver);
 
         homepagePF.openCategoryAll();
         catPF.clickComputers();
-        Thread.sleep(3000);
+
+
         catPF.clickListView();
         Assert.assertTrue(catPF.dropdownSelect());
 
-        Thread.sleep(3000);
+
 
         homepagePF.openCategory();
         homepagePF.clickBackToAllcat();
         homepagePF.test2();
-        Thread.sleep(3000);
+
         catPF.clickClothes();
         Assert.assertTrue(catPF.dropdownSelect());
         homepagePF.openCategory();
         homepagePF.clickBackToAllcat();
         homepagePF.test2();
-        Thread.sleep(3000);
+
         catPF.clickBabyNChild();
-        Thread.sleep(3000);
+
         Assert.assertTrue(catPF.dropdownSelect());
 
 

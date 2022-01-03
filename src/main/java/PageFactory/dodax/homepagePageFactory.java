@@ -208,7 +208,8 @@ public class homepagePageFactory {
     }
 
     public void test2(){
-        categoryS2.click();
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
+        executor.executeScript("arguments[0].click();", categoryS2);;
     }
 
     public void openCategory() {

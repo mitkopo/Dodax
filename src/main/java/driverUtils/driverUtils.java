@@ -23,8 +23,8 @@ public class driverUtils extends baseClass {
         if (trydate == null) {
             SimpleDateFormat formatter = new SimpleDateFormat("MMMM dd, yyyy");
 
-            String obSoleteDate = "May 1, 2015";
-            Date date2 = formatter.parse(obSoleteDate);
+            String obsoleteDate = "May 1, 2015";
+            Date date2 = formatter.parse(obsoleteDate);
             return date2;
         } else if (trydate != null) {
 

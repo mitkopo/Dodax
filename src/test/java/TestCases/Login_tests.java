@@ -14,7 +14,7 @@ public class Login_tests extends baseClass {
         loginPageFactory loginPF = new loginPageFactory(driver);
         homepagePageFactory homepagePF = new homepagePageFactory(driver);
 
-        homepagePF.clickCookiesPF();
+
         loginPF.notloggedIn();
         loginPF.emailInput("botearnasp@gmail.com");
         loginPF.passInput("Popokatepeltel1@");
@@ -44,7 +44,7 @@ public class Login_tests extends baseClass {
         homepagePF.logOut();
 
 
-        shopingCardPF.clickCartButton();
+        homepagePF.clickCartButton();;
         loginPF.e2eLoginOnSamePage();
         homepagePF.logOut();
 

@@ -58,6 +58,12 @@ public class homepagePageFactory {
     @FindBy(css = "[class=\"hd-header__container js-bodyScroller__padding\"]")
     WebElement obseleteClick;
 
+    @FindBy(css = "[class=\"hd-counter__content js-hd-counter__content a-bounceIn\"]")
+    WebElement cartButtonCounter;
+
+    @FindBy(css = "[data-qa=\"headerShoppingCartLink\"]")
+    WebElement cartButton;
+
     public homepagePageFactory(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -206,7 +212,7 @@ public class homepagePageFactory {
         categoryS2.click();
     }
 
-    public void test2(){
+    public void test2() {
         JavascriptExecutor executor = (JavascriptExecutor) driver;
         executor.executeScript("arguments[0].click();", categoryS2);
     }
@@ -232,7 +238,7 @@ public class homepagePageFactory {
         wishListButton.click();
     }
 
-    public void clickBackToAllcat(){
+    public void clickBackToAllcat() {
         backToAllCategories.click();
     }
 
@@ -244,6 +250,23 @@ public class homepagePageFactory {
 
     public void obsoleteClick() {
         obseleteClick.click();
+    }
+
+    public boolean cartButtonCounter() {
+        Boolean bc = null;
+        try {
+            bc = cartButton.isDisplayed();
+             return bc;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Cart is 0");
+            bc = false;
+
+        }
+    return bc;
+    }
+    public void clickCartButton() {
+        cartButton.click();
     }
 }
 

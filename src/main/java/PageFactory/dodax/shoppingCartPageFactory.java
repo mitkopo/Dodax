@@ -8,10 +8,8 @@ import org.openqa.selenium.support.PageFactory;
 public class shoppingCartPageFactory {
     WebDriver driver;
 
-    @FindBy(css = "[data-qa=\"headerShoppingCartLink\"]")
-    WebElement cartButton;
 
-    @FindBy(css = "[data-qa=\"shoppingCartProductLinkDesktop-5SV0AJ4QUFK\"]")
+    @FindBy(css = "[class=\"ch-cartPageItem__headingLink text-break\"]")
     WebElement shoppingCartItem;
 
     public shoppingCartPageFactory(WebDriver driver) {
@@ -19,9 +17,6 @@ public class shoppingCartPageFactory {
         PageFactory.initElements(driver, this);
     }
 
-    public void clickCartButton() {
-        cartButton.click();
-    }
 
     public String cartItemText() {
         return shoppingCartItem.getText();

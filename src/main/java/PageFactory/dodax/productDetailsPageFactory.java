@@ -1,5 +1,6 @@
 package PageFactory.dodax;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -37,6 +38,9 @@ public class productDetailsPageFactory {
     @FindBy(css = "[data-product-id]")
     WebElement dataProductId;
 
+    @FindBy(xpath = "//div[.='Release date:']/following-sibling::*")
+    WebElement releaseDate;
+
     public productDetailsPageFactory(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -63,7 +67,7 @@ public class productDetailsPageFactory {
     }
 
     public boolean iSCartItemSizeDisplayed() {
-        return cartItemSize.isDisplayed();
+        return cartItemSize.isEnabled();
     }
 
     public void waitForCart() {
@@ -98,5 +102,17 @@ public class productDetailsPageFactory {
         return bc;
     }
 
+    public String getReleaseDate() {
+        try {
+            String bc = releaseDate.getText();
+            return bc;
 
+        } catch (NoSuchElementException e) {
+            System.out.println("No release date");
+
+
+        }
+
+        return null;
+    }
 }

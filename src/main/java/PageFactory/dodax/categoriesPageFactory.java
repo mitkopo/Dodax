@@ -1,5 +1,6 @@
 package PageFactory.dodax;
 
+import driverUtils.driverUtils;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,11 +10,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.text.ParseException;
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class categoriesPageFactory {
     WebDriver driver;
@@ -110,8 +109,7 @@ public class categoriesPageFactory {
         String prodInfo2 = prodInfo.getAttribute("href");
         JavascriptExecutor executor = (JavascriptExecutor) driver;
         executor.executeScript("arguments[0].click();", prodInfo);
-        System.out.println(prodInfo);
-        System.out.println(prodInfo2);
+
         return prodInfo2;
     }
 
@@ -139,13 +137,37 @@ public class categoriesPageFactory {
         executor.executeScript("arguments[0].click();", listView);
     }
 
-    public boolean dropdownSelect() {
+    public boolean dropdownSelect() throws ParseException {
+        SearchResultFactory searchPF = new SearchResultFactory(driver);
+       productDetailsPageFactory productPF = new productDetailsPageFactory(driver);
+       driverUtils dU= new driverUtils(driver);
+
         Select sel = new Select(dropdown);
+
         int i;
         Boolean equals = null;
 
         for (i = 0; i <= 4; i++) {
             sel.selectByIndex(i);
+            if(i == 1) {
+                Boolean dates = null;
+                searchPF.clickFirstSearchResult();
+                Date bc = dU.dateFormat(productPF.getReleaseDate());
+               driver.navigate().back();
+               getRandProducthref();
+               Date ac = dU.dateFormat(productPF.getReleaseDate());
+               dates = bc.after(ac);
+               if(dates==true){
+                   driver.navigate().back();
+                   return dates;
+               }
+
+                else if  (dates == false) {
+                   System.out.println("Sorting by Newes Release date test has failed");
+
+                }
+
+                            }
             if (i == 3) {
 
                 equals = getPricesAscending();
@@ -214,7 +236,7 @@ public class categoriesPageFactory {
 
             if (b == true) {
                 b = getPagehRef(page2).equals(currentURL());
-                // System.out.println("Page 2 href "+hRef);
+
                 System.out.println("Page 2 currenturl " + currentURL());
                 waitForElement(pagination);
                 homepagePF.moveToBottom();

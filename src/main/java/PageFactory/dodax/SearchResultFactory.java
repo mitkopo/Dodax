@@ -16,6 +16,10 @@ public class SearchResultFactory {
     @FindBy(css = "[data-qa=\"searchResultPageContent\"]")
     List<WebElement> searchResultList;
 
+    @FindBy(css = "div[class='c-frontOfPack js-c-frontOfPack js-c-fopOffer c-frontOfPack--list']:first-of-type>div.c-frontOfPack__imageWrapper")
+    WebElement firstSearchResult;
+
+
 
 
     public SearchResultFactory(WebDriver driver) {
@@ -23,9 +27,11 @@ public class SearchResultFactory {
         PageFactory.initElements(driver, this);
     }
 
-    public void clickFisrtSearchResult() {
+    public void clickFirstSearchResultList() {
         searchResultList.get(0).click();
     }
 
-
+    public void clickFirstSearchResult(){
+        firstSearchResult.click();
+    }
 }

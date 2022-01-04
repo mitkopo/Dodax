@@ -34,10 +34,9 @@ public class ProductPage_tests extends baseClass {
         productDetailsPageFactory productPF = new productDetailsPageFactory(driver);
         shoppingCartPageFactory shopingCardPF = new shoppingCartPageFactory(driver);
 
-        homepagePF.clickCookiesPF();
-        homepagePF.searchBoxText("5SV0AJ4QUFK");
+        homepagePF.searchBoxText("A2R4V574SMF");
         homepagePF.pressEnterSearhBox();
-        searchPF.clickFisrtSearchResult();
+        searchPF.clickFirstSearchResultList();
         Assert.assertTrue(productPF.isAddToCartDisplayed());
         String itemCartSizeBeforeAdd = productPF.getCartItemSize() ;
         productPF.quantatyPlusButton();
@@ -63,9 +62,10 @@ public class ProductPage_tests extends baseClass {
         viewPPD();
         productPF.clickWishButton();
         productPF.waitForElement();
+        String product= productPF.getDataProductId();
         productPF.clickWishLoginButton();
         logInPF.logIn();
-        String product= productPF.getDataProductId();
+
         homePF.clickWishListButton();
         Assert.assertEquals(product,wishPF.getFirstWishListProductDetails());
 

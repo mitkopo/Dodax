@@ -1,6 +1,5 @@
 package TestCases;
 
-import PageFactory.dodax.SearchResultFactory;
 import PageFactory.dodax.homepagePageFactory;
 import PageFactory.dodax.noSearchResultFactory;
 import base.baseClass;
@@ -74,20 +73,7 @@ public class HomePage_tests extends baseClass {
 
     }
 
-    @Test
-    public void addToCart() {
 
-        homepagePageFactory homepagePF = new homepagePageFactory(driver);
-        SearchResultFactory searchPF = new SearchResultFactory(driver);
-
-
-        homepagePF.clickCookiesPF();
-        homepagePF.searchBoxText("5SV0AJ4QUFK");
-        homepagePF.pressEnterSearhBox();
-        searchPF.clickFisrtSearchResult();
-
-
-    }
 
 }
 

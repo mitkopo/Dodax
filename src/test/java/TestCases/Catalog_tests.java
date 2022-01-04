@@ -6,10 +6,12 @@ import base.baseClass;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.text.ParseException;
+
 public class Catalog_tests extends baseClass {
 
-    @Test
-    public void catalogPageListView()  {
+    @Test(priority = 1)
+    public void catalogPageListView() throws ParseException {
         homepagePageFactory homepagePF = new homepagePageFactory(driver);
         categoriesPageFactory catPF = new categoriesPageFactory(driver);
 
@@ -47,12 +49,12 @@ public class Catalog_tests extends baseClass {
 
     }
 
-    @Test
+    @Test(priority = 0)
     public void checkPagination() {
         homepagePageFactory homepagePF = new homepagePageFactory(driver);
         categoriesPageFactory catPF = new categoriesPageFactory(driver);
 
-        homepagePF.clickCookiesPF();
+
         homepagePF.searchBoxText("book");
         homepagePF.pressEnterSearhBox();
         homepagePF.moveToBottom();

@@ -15,10 +15,8 @@ public class ProductPage_tests extends baseClass {
         homepagePF.openCategory();
         homepagePF.openCatMovies();
         homepagePF.waitForTree();
-        homepagePF.openSubCatTree();
+        homepagePF.openAllSubCatTree();
         String urlToCheck = catPF.getRandProducthref();
-
-
 
       Assert.assertEquals(urlToCheck,catPF.currentURL());
         System.out.println(urlToCheck);
@@ -47,7 +45,8 @@ public class ProductPage_tests extends baseClass {
         productPF.iSCartItemSizeDisplayed();
         Assert.assertFalse(itemCartSizeBeforeAdd.equals(productPF.getCartItemSize()));
         productPF.viewShoppingCart();
-        Assert.assertTrue(product.contains(shopingCardPF.cartItemText()));
+        shopingCardPF.removeShoppingCartItems();
+//        Assert.assertTrue(product.contains(shopingCardPF.cartItemText()));
     }
 
 

@@ -20,6 +20,7 @@ public class Catalog_tests extends baseClass {
 
 
         catPF.clickListView();
+        Assert.assertTrue(catPF.isListViewSelected());
         Assert.assertTrue(catPF.dropdownSelect());
 
 
@@ -44,6 +45,7 @@ public class Catalog_tests extends baseClass {
         // koristeni lokatori [class="c-viewSwitch__button js-c-viewSwitch__button--list btn-reset c-viewSwitch__button--activeView"]
         // [data-qa="searchResultPageGridViewIcon"]
         // [data-qa="searchResultPageListViewIcon"]
+
         // [class=\"c-viewSwitch__icon icon-list-view\"]"
 
 
@@ -58,7 +60,7 @@ public class Catalog_tests extends baseClass {
         homepagePF.searchBoxText("book");
         homepagePF.pressEnterSearhBox();
         homepagePF.moveToBottom();
-        Assert.assertTrue(catPF.checkPaginationNumber());
+        catPF.checkPaginationNumber();
 
     }
 }

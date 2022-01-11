@@ -1,7 +1,9 @@
 package driverUtils;
 
 import base.baseClass;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
 import java.text.ParseException;
@@ -37,4 +39,23 @@ public class driverUtils extends baseClass {
         }
         return null;
     }
+
+    public void jsClick(WebElement element) {
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
+        executor.executeScript("arguments[0].click();", element);
+    }
+
+    public String currentURL(){
+        return driver.getCurrentUrl();
+    }
+
+    public Integer checkCounter(String counter){
+       int foo;
+        try {
+            foo = Integer.parseInt(counter);
+        }
+        catch (NumberFormatException e) {
+            foo = 0;
+        }
+return foo; }
 }

@@ -64,6 +64,11 @@ public class homepagePageFactory {
     @FindBy(css = "[data-qa=\"headerShoppingCartLink\"]")
     WebElement cartButton;
 
+    @FindBy(css = "[data-qa=\"headerWishlistCounter\"]")
+    WebElement wishListCounter;
+
+
+
     public homepagePageFactory(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -225,7 +230,7 @@ public class homepagePageFactory {
         categoryMovies.click();
     }
 
-    public void openSubCatTree() {
+    public void openAllSubCatTree() {
         subCatShowAllProducts.click();
     }
 
@@ -267,6 +272,10 @@ public class homepagePageFactory {
     }
     public void clickCartButton() {
         cartButton.click();
+    }
+
+    public String getWishListCounter(){
+        return wishListCounter.getText();
     }
 }
 

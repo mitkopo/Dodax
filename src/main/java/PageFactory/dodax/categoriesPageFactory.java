@@ -1,7 +1,6 @@
 package PageFactory.dodax;
 
 import driverUtils.driverUtils;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -39,7 +38,7 @@ public class categoriesPageFactory {
     @FindBy(css = "[data-qa=\"searchResultPageGridViewIcon\"]")
     WebElement gridView;
 
-    @FindBy(css = "[class=\"c-viewSwitch__button js-c-viewSwitch__button--grid btn-reset c-viewSwitch__button--activeView\"]")
+    @FindBy(css = "li>button[class*='c-viewSwitch__button--activeView']")
     WebElement listViewSelected;
 
     @FindBy(css = "[data-qa=\"searchResultPageContentSortingSelect\"]")
@@ -75,10 +74,14 @@ public class categoriesPageFactory {
     @FindBy(css = "[data-qa=\"pagination\"]")
     WebElement pagination;
 
+    @FindBy(css = "ul[class=\"c-pagination__list\"]>li")
+    List<WebElement> pageListNumbers;
+
     public categoriesPageFactory(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
+
 
     public void waitForElement(WebElement element) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(6));
@@ -86,10 +89,12 @@ public class categoriesPageFactory {
     }
 
     public void randomCategory() {
+        driverUtils dU = new driverUtils(driver);
+
         Random rnd = new Random();
         int i = rnd.nextInt(allCategories.size());
-        JavascriptExecutor executor = (JavascriptExecutor) driver;
-        executor.executeScript("arguments[0].click();", allCategories.get(i));
+
+        dU.jsClick(allCategories.get(i));
     }
 
     private int randomProduct() {
@@ -103,12 +108,18 @@ public class categoriesPageFactory {
         return products.get(randomProduct());
     }
 
+    public void clickRandomProduct(){
+        driverUtils dU = new driverUtils(driver);
+       dU.jsClick(getRandProduct());
+    }
+
     public String getRandProducthref() {
+        driverUtils dU = new driverUtils(driver);
 
         WebElement prodInfo = getRandProduct();
         String prodInfo2 = prodInfo.getAttribute("href");
-        JavascriptExecutor executor = (JavascriptExecutor) driver;
-        executor.executeScript("arguments[0].click();", prodInfo);
+
+        dU.jsClick(prodInfo);
 
         return prodInfo2;
     }
@@ -126,21 +137,24 @@ public class categoriesPageFactory {
         clothes.click();
     }
 
-    public boolean isListViewSelected() {
-        boolean b;
-        b = listView.isSelected();
-        return b;
-    }
 
     public void clickListView() {
-        JavascriptExecutor executor = (JavascriptExecutor) driver;
-        executor.executeScript("arguments[0].click();", listView);
+        driverUtils dU = new driverUtils(driver);
+
+
+        dU.jsClick(listView);
+
+    }
+
+    public boolean isListViewSelected() {
+        return listViewSelected.isDisplayed();
+
     }
 
     public boolean dropdownSelect() throws ParseException {
         SearchResultFactory searchPF = new SearchResultFactory(driver);
-       productDetailsPageFactory productPF = new productDetailsPageFactory(driver);
-       driverUtils dU= new driverUtils(driver);
+        productDetailsPageFactory productPF = new productDetailsPageFactory(driver);
+        driverUtils dU = new driverUtils(driver);
 
         Select sel = new Select(dropdown);
 
@@ -149,25 +163,23 @@ public class categoriesPageFactory {
 
         for (i = 0; i <= 4; i++) {
             sel.selectByIndex(i);
-            if(i == 1) {
+            if (i == 1) {
                 Boolean dates = null;
                 searchPF.clickFirstSearchResult();
                 Date bc = dU.dateFormat(productPF.getReleaseDate());
-               driver.navigate().back();
-               getRandProducthref();
-               Date ac = dU.dateFormat(productPF.getReleaseDate());
-               dates = bc.after(ac);
-               if(dates==true){
-                   driver.navigate().back();
-                   return dates;
-               }
-
-                else if  (dates == false) {
-                   System.out.println("Sorting by Newes Release date test has failed");
+                driver.navigate().back();
+                getRandProducthref();
+                Date ac = dU.dateFormat(productPF.getReleaseDate());
+                dates = bc.after(ac);
+                if (dates == true) {
+                    driver.navigate().back();
+                    return dates;
+                } else if (dates == false) {
+                    System.out.println("Sorting by Newes Release date test has failed");
 
                 }
 
-                            }
+            }
             if (i == 3) {
 
                 equals = getPricesAscending();
@@ -219,6 +231,30 @@ public class categoriesPageFactory {
     }
 
 
+    public void testCheckPaginationNumber() {
+        homepagePageFactory homepagePF = new homepagePageFactory(driver);
+        driverUtils dU = new driverUtils(driver);
+
+        int i;
+        Boolean b = null;
+
+        for (WebElement element : pageListNumbers) {
+            System.out.println(element);
+            System.out.println(getPagehRef(element));
+            b = getPagehRef(element).contains(currentURL());
+            if (b == true) {
+                dU.jsClick(element);
+                b = getPagehRef(element).equals(currentURL());
+                waitForElement(pagination);
+                homepagePF.moveToBottom();
+
+
+            }
+        }
+
+
+    }
+
     public boolean checkPaginationNumber() {
         homepagePageFactory homepagePF = new homepagePageFactory(driver);
         Boolean b;
@@ -226,12 +262,13 @@ public class categoriesPageFactory {
 
         System.out.println(currentURL());
         b = getPagehRef(page1).contains(currentURL());
-        JavascriptExecutor executor = (JavascriptExecutor) driver;
+        driverUtils dU = new driverUtils(driver);
+
 
         if (b == true) {
             waitForElement(pagination);
             homepagePF.moveToBottom();
-            executor.executeScript("arguments[0].click();", page2);
+            dU.jsClick(page2);
 
 
             if (b == true) {
@@ -240,7 +277,8 @@ public class categoriesPageFactory {
                 System.out.println("Page 2 currenturl " + currentURL());
                 waitForElement(pagination);
                 homepagePF.moveToBottom();
-                executor.executeScript("arguments[0].click();", page3);
+                dU.jsClick(page3);
+
 
                 if (b == true) {
                     b = getPagehRef(page3).equals(currentURL());
@@ -248,7 +286,8 @@ public class categoriesPageFactory {
                     System.out.println("Page 3 currenturl " + currentURL());
                     waitForElement(pagination);
                     homepagePF.moveToBottom();
-                    executor.executeScript("arguments[0].click();", page4);
+                    dU.jsClick(page4);
+
 
                     if (b == true) {
                         b = getPagehRef(page4).contains(currentURL());
@@ -257,7 +296,7 @@ public class categoriesPageFactory {
                         System.out.println("Page 4 currenturl " + currentURL());
                         if (b == true) {
                             String continueButtonhRef = getPagehRef(continueButton);
-                            executor.executeScript("arguments[0].click();", continueButton);
+                            dU.jsClick(continueButton);
                             b = continueButtonhRef.equals(currentURL());
 
                             if (b == true) {
@@ -265,7 +304,8 @@ public class categoriesPageFactory {
                                 waitForElement(pagination);
                                 homepagePF.moveToBottom();
                                 System.out.println("Three back dots url is: " + threeDotsBack);
-                                executor.executeScript("arguments[0].click();", threeBackDots);
+                                dU.jsClick(threeBackDots);
+
                                 b = threeDotsBack.equals(currentURL());
 
                                 if (b == true) {
@@ -273,7 +313,7 @@ public class categoriesPageFactory {
                                     waitForElement(pagination);
                                     homepagePF.moveToBottom();
                                     System.out.println("Three forward dots url is: " + threeDotsForward);
-                                    executor.executeScript("arguments[0].click();", threeForwardDots);
+                                    dU.jsClick(threeForwardDots);
                                     b = threeDotsForward.equals(currentURL());
 
                                     if (b == true) {
@@ -281,7 +321,7 @@ public class categoriesPageFactory {
                                         waitForElement(pagination);
                                         homepagePF.moveToBottom();
                                         System.out.println("The first page link is: " + firstPageNumber);
-                                        executor.executeScript("arguments[0].click();", page1);
+                                        dU.jsClick(page1);
                                         b = firstPageNumber.equals(currentURL());
 
                                         if (b == true) {
@@ -289,7 +329,7 @@ public class categoriesPageFactory {
                                             waitForElement(pagination);
                                             homepagePF.moveToBottom();
                                             System.out.println("last page link is: " + lastPageNumber);
-                                            executor.executeScript("arguments[0].click();", lastPage);
+                                            dU.jsClick(lastPage);
                                             b = lastPageNumber.equals(currentURL());
 
                                         }

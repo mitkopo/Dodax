@@ -1,5 +1,6 @@
 package PageFactory.dodax;
 
+import driverUtils.driverUtils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -29,7 +30,7 @@ public class productDetailsPageFactory {
     @FindBy(css = "[data-qa=\"shoppingCartProductLinkDesktop-5SV0AJ4QUFK\"]")
     WebElement shoppingCartItem;
 
-    @FindBy(css = "[title=\"ADD TO WISHLIST\"]")
+    @FindBy(css = "[class=\"c-wishlistToggler js-c-wishlistToggler btn-reset c-wishlistToggler--withBorder\"]")
     WebElement wishButton;
 
     @FindBy(css = "[data-qa=\"loginModalBtnUserRedirect\"]")
@@ -76,7 +77,9 @@ public class productDetailsPageFactory {
     }
 
     public void viewShoppingCart() {
-        viewShoppingCart.click();
+        driverUtils dU= new driverUtils(driver);
+        dU.jsClick(viewShoppingCart);
+
     }
 
     public String pageTitle() {
@@ -85,7 +88,9 @@ public class productDetailsPageFactory {
     }
 
     public void clickWishButton() {
-        wishButton.click();
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(wishButton);
+       // wishButton.click();
     }
 
     public void clickWishLoginButton() {

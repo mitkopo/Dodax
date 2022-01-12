@@ -30,6 +30,12 @@ public class shoppingCartPageFactory {
     @FindBy(css = "[class=\"d-md-flex d-lg-block justify-content-end\"]>:first-child")
     List<WebElement> prices;
 
+    @FindBy(css = "span[title=\"ADD TO WISHLIST\"]")
+    WebElement wishListUpdate;
+
+    @FindBy(css = "[class=\"c-wishlistToggler js-c-wishlistToggler btn-reset c-wishlistToggler--small c-wishlistToggler--active\"]")
+    WebElement wishListAddItemUpdate;
+
     public shoppingCartPageFactory(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -49,20 +55,43 @@ public class shoppingCartPageFactory {
         }
     }
 
-    public void clickAddToWishList(){
+    public void clickAddToWishList() {
         driverUtils dU = new driverUtils(driver);
         dU.jsClick(wishButton);
     }
+
     public void waitForLogInPopUp() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         wait.until(ExpectedConditions.visibilityOf(loginPopUp));
     }
 
-    public void clickLogInPopUp(){
+    public void waitForWishListRemoveItemUpdate(){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        wait.until(ExpectedConditions.visibilityOf(wishListUpdate));
+    }
+
+    public void clickLogInPopUp() {
         driverUtils dU = new driverUtils(driver);
         dU.jsClick(loginPopUp);
     }
 
+    public void waitForWishListAddItemUpdate(){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        wait.until(ExpectedConditions.visibilityOf(wishListAddItemUpdate));
+    }
+
+    public double sumTotalPrice() {
+        double sum = 0;
+        for (int i = 0; i < prices.size(); i++) {
+            String text = prices.get(i).getText();
+            double[] foo = new double[prices.size()];
+            foo[i] = Double.parseDouble(text);
+            sum = sum + foo[i];
+
+            return sum;
+        }
+        System.out.println(sum);
+        return sum;
+    }
+
 }
-
-

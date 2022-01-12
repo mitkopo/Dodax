@@ -5,7 +5,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 
 public class wishListPageFactory {
@@ -20,6 +23,9 @@ public class wishListPageFactory {
 
     @FindBy(css = "[class=\"w-100 d-flex justify-content-between flex-column flex-md-row align-items-end\"]>:first-child")
     List<WebElement> removeWishListItems;
+
+    @FindBy(css = "[class=\"mr-4\"]")
+    WebElement emptyWishList;
 
 
 
@@ -41,6 +47,15 @@ public class wishListPageFactory {
             executor.executeScript("arguments[0].click();", element);
         }
 
+    }
+
+    public boolean isWishListEmpty(){
+        return emptyWishList.isDisplayed();
+    }
+
+    public void waitForEmptyWishList(){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        wait.until(ExpectedConditions.visibilityOf(emptyWishList));
     }
 
 

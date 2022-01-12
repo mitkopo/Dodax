@@ -1,5 +1,6 @@
 package PageFactory.dodax;
 
+import driverUtils.driverUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -47,9 +48,9 @@ public class registrationPageFactory {
         inputPass.sendKeys(text);
     }
     public void clickRegisterButton(){
-        registerButton.click();
-        //JavascriptExecutor executor = (JavascriptExecutor) driver;
-       // executor.executeScript("arguments[0].click();",registerButton);
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(registerButton);
+
     }
 
     public boolean checkBoxMessage(){

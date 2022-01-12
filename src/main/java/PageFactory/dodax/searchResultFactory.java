@@ -7,7 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-public class SearchResultFactory {
+public class searchResultFactory {
     WebDriver driver;
 
     @FindBy(css = "[data-qa=\"searchResultPageContentSortingSelect\"]")
@@ -22,7 +22,7 @@ public class SearchResultFactory {
 
 
 
-    public SearchResultFactory(WebDriver driver) {
+    public searchResultFactory(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }

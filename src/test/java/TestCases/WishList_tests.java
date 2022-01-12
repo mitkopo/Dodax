@@ -30,7 +30,7 @@ public class WishList_tests extends baseClass {
 
 
     @Test
-    public void emptyTheWishList(){
+    public void emptyTheWishList() {
         loginPageFactory loginPF= new loginPageFactory(driver);
         homepagePageFactory homepagePF = new homepagePageFactory(driver);
         categoriesPageFactory catPF = new categoriesPageFactory(driver);
@@ -45,7 +45,8 @@ public class WishList_tests extends baseClass {
         productPF.clickWishButton();
         homepagePF.clickWishListButton();
         wishListPF.removeWishListItems();
-
+        wishListPF.waitForEmptyWishList();
+        Assert.assertTrue(wishListPF.isWishListEmpty());
 
 
     }

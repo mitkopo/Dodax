@@ -30,7 +30,7 @@ public class baseClass {
 
     @AfterSuite
     public  void closeBrowser(){
-//        driver.quit();
+        driver.quit();
 
     }
 }

@@ -60,7 +60,7 @@ public class Catalog_tests extends baseClass {
         homepagePF.searchBoxText("book");
         homepagePF.pressEnterSearhBox();
         homepagePF.moveToBottom();
-        catPF.checkPaginationNumber();
+        Assert.assertTrue(catPF.checkPaginationNumber());
 
     }
 }

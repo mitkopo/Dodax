@@ -27,20 +27,20 @@ public class productDetailsPageFactory {
     @FindBy(css = "[data-qa=\"productDetailspageSideBoxBtnsGoToCart\"]")
     WebElement viewShoppingCart;
 
-    @FindBy(css = "[data-qa=\"shoppingCartProductLinkDesktop-5SV0AJ4QUFK\"]")
-    WebElement shoppingCartItem;
-
     @FindBy(css = "[class=\"c-wishlistToggler js-c-wishlistToggler btn-reset c-wishlistToggler--withBorder\"]")
     WebElement wishButton;
 
     @FindBy(css = "[data-qa=\"loginModalBtnUserRedirect\"]")
     WebElement wishLoginButton;
 
-    @FindBy(css = "[data-product-id]")
+    @FindBy(css = "main[data-product-id]")
     WebElement dataProductId;
 
     @FindBy(xpath = "//div[.='Release date:']/following-sibling::*")
     WebElement releaseDate;
+
+    @FindBy(css = "button.c-buttonAddToCart--success")
+    WebElement realWaitForCart;
 
     public productDetailsPageFactory(WebDriver driver) {
         this.driver = driver;
@@ -77,7 +77,7 @@ public class productDetailsPageFactory {
     }
 
     public void viewShoppingCart() {
-        driverUtils dU= new driverUtils(driver);
+        driverUtils dU = new driverUtils(driver);
         dU.jsClick(viewShoppingCart);
 
     }
@@ -90,7 +90,7 @@ public class productDetailsPageFactory {
     public void clickWishButton() {
         driverUtils dU = new driverUtils(driver);
         dU.jsClick(wishButton);
-       // wishButton.click();
+        // wishButton.click();
     }
 
     public void clickWishLoginButton() {
@@ -119,5 +119,10 @@ public class productDetailsPageFactory {
         }
 
         return null;
+    }
+
+    public void waitForAddToCart() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(4));
+        wait.until(ExpectedConditions.visibilityOf(realWaitForCart));
     }
 }

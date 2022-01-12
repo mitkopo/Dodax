@@ -152,7 +152,7 @@ public class categoriesPageFactory {
     }
 
     public boolean dropdownSelect() throws ParseException {
-        SearchResultFactory searchPF = new SearchResultFactory(driver);
+        searchResultFactory searchPF = new searchResultFactory(driver);
         productDetailsPageFactory productPF = new productDetailsPageFactory(driver);
         driverUtils dU = new driverUtils(driver);
 

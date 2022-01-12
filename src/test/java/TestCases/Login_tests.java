@@ -10,7 +10,7 @@ public class Login_tests extends baseClass {
 
 
     @Test
-    public void test1() {
+    public void successfulLogin() throws InterruptedException {
         loginPageFactory loginPF = new loginPageFactory(driver);
         homepagePageFactory homepagePF = new homepagePageFactory(driver);
 
@@ -20,32 +20,37 @@ public class Login_tests extends baseClass {
         loginPF.passInput("Popokatepeltel1@");
         loginPF.loginButton();
         loginPF.verifyLogIn();
+        Thread.sleep(3000);
+        Assert.assertTrue(loginPF.verifyLogIn());
         homepagePF.logOut();
     }
 
     @Test
-    public void test2() {
+    public void verifyLoginOnSamePage() {
         loginPageFactory loginPF = new loginPageFactory(driver);
         homepagePageFactory homepagePF = new homepagePageFactory(driver);
         categoriesPageFactory categoryPF = new categoriesPageFactory(driver);
-        shoppingCartPageFactory shopingCardPF = new shoppingCartPageFactory(driver);
 
-        loginPF.e2eLoginOnSamePage();
+        Assert.assertTrue(loginPF.e2eLoginOnSamePage());
+        Assert.assertTrue(loginPF.verifyLogIn());
         homepagePF.logOut();
 
 
         homepagePF.openCategoryAll();
-        loginPF.e2eLoginOnSamePage();
+        Assert.assertTrue(loginPF.e2eLoginOnSamePage());
+        Assert.assertTrue(loginPF.verifyLogIn());
         homepagePF.logOut();
 
         homepagePF.openCategoryAll();
         categoryPF.randomCategory();
-        loginPF.e2eLoginOnSamePage();
+        Assert.assertTrue(loginPF.e2eLoginOnSamePage());
+        Assert.assertTrue(loginPF.verifyLogIn());
         homepagePF.logOut();
 
 
         homepagePF.clickCartButton();;
-        loginPF.e2eLoginOnSamePage();
+        Assert.assertTrue(loginPF.e2eLoginOnSamePage());
+        Assert.assertTrue(loginPF.verifyLogIn());
         homepagePF.logOut();
 
 
@@ -54,19 +59,14 @@ public class Login_tests extends baseClass {
         categoryPF.getRandProduct();
 
         loginPF.urlBeforeLogIn();
-        loginPF.notloggedIn();
-        loginPF.emailInput("botearnasp@gmail.com");
-        loginPF.passInput("Popokatepeltel1@");
-        loginPF.loginButton();
-        loginPF.urlAfterLogin();
-        Assert.assertEquals(loginPF.urlBeforeLogIn(), loginPF.urlAfterLogin());
-        loginPF.verifyLogIn();
+        Assert.assertTrue(loginPF.e2eLoginOnSamePage());
+        Assert.assertTrue(loginPF.verifyLogIn());
         homepagePF.logOut();
     }
 
 
     @Test
-    public void test3() {
+    public void resetPassword() {
         loginPageFactory loginPF = new loginPageFactory(driver);
         resetPasswordPageFactory resetPassPF = new resetPasswordPageFactory(driver);
 
@@ -75,11 +75,11 @@ public class Login_tests extends baseClass {
         resetPassPF.emailInput("testitytt@gmail.com");
         resetPassPF.clickPassResetButton();
         resetPassPF.waitElement();
-        resetPassPF.isEmailMessageDisplayed();
+        Assert.assertTrue(resetPassPF.isEmailMessageDisplayed());
     }
 
     @Test
-    public void test4() {
+    public void registerNewAccount() {
         loginPageFactory loginPF = new loginPageFactory(driver);
         registrationPageFactory registerPF = new registrationPageFactory(driver);
 
@@ -90,7 +90,7 @@ public class Login_tests extends baseClass {
         registerPF.inputEmail("avazalijam@gmail.com");
         registerPF.inputPass("Popokatepetel123!@");
         registerPF.clickRegisterButton();
-        registerPF.checkBoxMessage();
+        Assert.assertTrue(registerPF.checkBoxMessage());
     }
 }
 

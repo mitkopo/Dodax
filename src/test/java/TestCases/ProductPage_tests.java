@@ -28,7 +28,7 @@ public class ProductPage_tests extends baseClass {
     public void addToCart()   {
 
         homepagePageFactory homepagePF = new homepagePageFactory(driver);
-        SearchResultFactory searchPF = new SearchResultFactory(driver);
+        searchResultFactory searchPF = new searchResultFactory(driver);
         productDetailsPageFactory productPF = new productDetailsPageFactory(driver);
         shoppingCartPageFactory shopingCardPF = new shoppingCartPageFactory(driver);
 
@@ -46,7 +46,7 @@ public class ProductPage_tests extends baseClass {
         Assert.assertFalse(itemCartSizeBeforeAdd.equals(productPF.getCartItemSize()));
         productPF.viewShoppingCart();
         shopingCardPF.removeShoppingCartItems();
-//        Assert.assertTrue(product.contains(shopingCardPF.cartItemText()));
+        Assert.assertTrue(product.contains(shopingCardPF.cartItemText()));
     }
 
 

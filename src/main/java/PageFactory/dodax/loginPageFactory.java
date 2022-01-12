@@ -6,7 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.Assert;
 
 public class loginPageFactory extends baseClass {
     WebDriver driver;
@@ -50,20 +49,20 @@ public class loginPageFactory extends baseClass {
         loginButton.click();
     }
 
-    public boolean isLoggedIn(){
-       return notLogged.isDisplayed();
-    }
 
-    public void verifyLogIn(){
+    public boolean verifyLogIn(){
+        Boolean b;
         try {
-            notLogged.isDisplayed();
+            if(notLogged.isDisplayed());
             System.out.println("User is not logged");
+            b=false;
 
         } catch (NoSuchElementException e) {
+            b=true;
             System.out.println("User is logged In");
 
         }
-    }
+  return b;  }
     public String urlAfterLogin(){
       return  driver.getCurrentUrl();
     }
@@ -81,15 +80,16 @@ public class loginPageFactory extends baseClass {
     }
 
 
-    public void e2eLoginOnSamePage(){
-       urlBeforeLogIn();
+    public boolean e2eLoginOnSamePage(){
+        Boolean b;
+       String urlBeforeLogin = urlBeforeLogIn();
         notloggedIn();
        emailInput("botearnasp@gmail.com");
         passInput("Popokatepeltel1@");
         loginButton();
         urlAfterLogin();
-        Assert.assertEquals(urlBeforeLogIn(),urlAfterLogin());
-        verifyLogIn();
+        b= urlBeforeLogin.equals(urlAfterLogin());
+        return b;
     }
 
     public void logIn(){

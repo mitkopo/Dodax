@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class productDetailsPageFactory {
-    WebDriver driver;
+    public WebDriver driver;
 
 
     @FindBy(css = "[data-qa=\"productDetailspageSideBoxBtnsAddToCart\"]")
@@ -39,11 +39,19 @@ public class productDetailsPageFactory {
     @FindBy(xpath = "//div[.='Release date:']/following-sibling::*")
     WebElement releaseDate;
 
-    @FindBy(css = "button.c-buttonAddToCart--success")
+    //this element is displayed after the item is added to the cart, is not non stop visible locator
+//    @FindBy(css = "button.c-buttonAddToCart--success")
+    @FindBy(css = "section>div>button:first-of-type:disabled")
     WebElement realWaitForCart;
+
 
     @FindBy(css = "main[data-product-price]")
     WebElement productPrice;
+
+    @FindBy(css = "[class=\"ml-1 c-wishlistToggler__text js-c-wishlistToggler__text\"")
+    WebElement removeFromWishList;
+
+
 
     public productDetailsPageFactory(WebDriver driver) {
         this.driver = driver;
@@ -57,7 +65,9 @@ public class productDetailsPageFactory {
     }
 
     public void quantatyPlusButton() {
-        qtyBtnPlus.click();
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(qtyBtnPlus);
+//        qtyBtnPlus.click();
     }
 
     public void addToCartButton() {
@@ -99,7 +109,13 @@ public class productDetailsPageFactory {
     }
 
     public void clickWishLoginButton() {
-        wishLoginButton.click();
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(wishLoginButton);
+//        wishLoginButton.click();
+    }
+    public void waitForRemoveFromWishListButton(){
+        driverUtils dU = new driverUtils(driver);
+        dU.waitForElementToBeVisible(removeFromWishList);
     }
 
     public void waitForElement() {
@@ -135,5 +151,7 @@ public class productDetailsPageFactory {
         double price = Double.parseDouble(productPrice.getAttribute("data-product-price"));
         return price;
     }
+
+
 
 }

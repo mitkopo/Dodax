@@ -1,6 +1,7 @@
 package PageFactory.dodax;
 
 import base.baseClass;
+import driverUtils.driverUtils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class loginPageFactory extends baseClass {
-    WebDriver driver;
+    public WebDriver driver;
 
     @FindBy(css = "[data-qa=\"headerUserNotLoggedIn\"]")
     WebElement notLogged;
@@ -34,7 +35,19 @@ public class loginPageFactory extends baseClass {
     }
 
     public void notloggedIn() {
-        notLogged.click();
+        driverUtils dU = new driverUtils(driver);
+        homepagePageFactory homepagePF = new homepagePageFactory(driver);
+        try{
+
+
+        dU.jsClick(notLogged);}
+        catch (NoSuchElementException e){
+            System.out.println("user is logged in");
+            homepagePF.logOut();
+            System.out.println("has been logged out");
+            dU.jsClick(notLogged);
+        }
+//
     }
 
     public void emailInput(String text){
@@ -46,7 +59,9 @@ public class loginPageFactory extends baseClass {
     }
 
     public void loginButton(){
-        loginButton.click();
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(loginButton);
+//        loginButton.click();
     }
 
 
@@ -68,11 +83,15 @@ public class loginPageFactory extends baseClass {
     }
 
     public void clickForgotpassButton(){
-        forgotpassButton.click();
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(forgotpassButton);
+//        forgotpassButton.click();
     }
 
     public void clickSignUpForFree(){
-        signUp.click();
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(signUp);
+//        signUp.click();
     }
     public String urlBeforeLogIn() {
         String currentURL = driver.getCurrentUrl();
@@ -93,8 +112,14 @@ public class loginPageFactory extends baseClass {
     }
 
     public void logIn(){
-        emailInput("botearnasp@gmail.com");
-        passInput("Popokatepeltel1@");
-        loginButton();
+        try{
+            emailInput("botearnasp@gmail.com");
+            passInput("Popokatepeltel1@");
+            loginButton();
+            }
+        catch (NoSuchElementException e){
+            System.out.println("user is logged in");
+        }
+
     }
 }

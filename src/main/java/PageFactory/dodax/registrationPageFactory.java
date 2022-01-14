@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class registrationPageFactory {
-    WebDriver driver;
+    public WebDriver driver;
 
     @FindBy(css = "[data-qa=\"registerInputFirstName\"]")
     WebElement inputFirstName;

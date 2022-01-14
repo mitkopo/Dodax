@@ -14,14 +14,16 @@ import java.time.Duration;
 import java.util.*;
 
 public class categoriesPageFactory {
-    WebDriver driver;
+   public WebDriver driver;
 
 
     @FindBy(xpath = "//div[@class=\"cat-categories\"]//a")
     List<WebElement> allCategories;
 
-    @FindBy(xpath = "//div[@class=\"pr-productsList__items js-pr-productsList__items d-flex flex-wrap\"]//a")
+    @FindBy(css = "[data-qa=\"searchResultPageProductLink\"]")
     List<WebElement> products;
+
+//    @FindBy(css = "")
 
     @FindBy(xpath = "//*[ contains (text(),\"Computers\")]")
     WebElement computers;
@@ -117,11 +119,11 @@ public class categoriesPageFactory {
         driverUtils dU = new driverUtils(driver);
 
         WebElement prodInfo = getRandProduct();
-        String prodInfo2 = prodInfo.getAttribute("href");
+        String prodInfoHref = prodInfo.getAttribute("href");
 
         dU.jsClick(prodInfo);
 
-        return prodInfo2;
+        return prodInfoHref;
     }
 
     public String currentURL() {
@@ -130,11 +132,15 @@ public class categoriesPageFactory {
     }
 
     public void clickComputers() {
-        computers.click();
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(computers);
+//        computers.click();
     }
 
     public void clickClothes() {
-        clothes.click();
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(clothes);
+//        clothes.click();
     }
 
 
@@ -165,6 +171,7 @@ public class categoriesPageFactory {
             sel.selectByIndex(i);
             if (i == 1) {
                 Boolean dates = null;
+                searchPF.waitForDropDown();
                 searchPF.clickFirstSearchResult();
                 Date bc = dU.dateFormat(productPF.getReleaseDate());
                 driver.navigate().back();
@@ -222,7 +229,9 @@ public class categoriesPageFactory {
     }
 
     public void clickBabyNChild() {
-        babuAndChild.click();
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(babuAndChild);
+//        babuAndChild.click();
     }
 
 
@@ -350,7 +359,14 @@ public class categoriesPageFactory {
 
         return b;
     }
-
+    public void waitForSearchResultToLoad(){
+        driverUtils dU = new driverUtils(driver);
+        dU.waitForVisibilityListOfElements(products);
+    }
+    public void waitForFirstSearchResultToLoad(){
+        driverUtils dU = new driverUtils(driver);
+        dU.waitForElementToBeVisible(products.get(0));
+    }
 }
 
 

@@ -9,7 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.List;
 
 public class searchResultFactory {
-    WebDriver driver;
+    public WebDriver driver;
 
     @FindBy(css = "[data-qa=\"searchResultPageContentSortingSelect\"]")
     WebElement sortDropDown;
@@ -17,7 +17,7 @@ public class searchResultFactory {
     @FindBy(css = "[data-qa=\"searchResultPageContent\"]")
     List<WebElement> searchResultList;
 
-    @FindBy(css = "div[class='c-frontOfPack js-c-frontOfPack js-c-fopOffer c-frontOfPack--list']:first-of-type>div.c-frontOfPack__imageWrapper")
+    @FindBy(css = "[data-qa=\"searchResultPageContent\"]>div>a")
     WebElement firstSearchResult;
 
     @FindBy(css = "[data-qa=\"headerSearchBtnClear\"]")
@@ -38,7 +38,10 @@ public class searchResultFactory {
     }
 
     public void clickFirstSearchResult(){
-        firstSearchResult.click();
+        driverUtils dU = new driverUtils(driver);
+//        String href = firstSearchResult.getAttribute("href");
+        dU.jsClick(firstSearchResult);
+//        firstSearchResult.click();
     }
 
     public void clearSearchBox(){
@@ -51,7 +54,7 @@ public class searchResultFactory {
     }
     public void waitForDropDown(){
         driverUtils dU = new driverUtils(driver);
-        dU.waitForElement(sortDropDown);
+        dU.waitForElementToBeVisible(sortDropDown);
     }
 
 }

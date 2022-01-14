@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="Dodax" parallel="tests" thread-count="2">
+    <listeners>
+        <listener class-name="listeners.customListeners"/>
+    </listeners>
+    <test name="Frontpage">
+        <groups>
+<!--            <define name="all">-->
+<!--                <include name="logIn"></include>-->
+<!--                <include name="noLogin"></include>-->
+<!--            </define>-->
+<!--            <define name="logIn">-->
+<!--                <include name="logIn"></include>-->
+<!--            </define>-->
+            <run>
+                <exclude name="noLogin">
+                </exclude>
+            </run>
+        </groups>
+        <classes>
+<!--            <class name="TestCases.HomePage_tests"/>-->
+            <class name="TestCases.Login_tests"/>
+            <class name="TestCases.ProductPage_tests"/>
+            <class name="TestCases.Catalog_tests">
+<!--            <class name="TestCases.WishList_tests"/>-->
+<!--            <class name="TestCases.ShoppingCart_tests">-->
+            </class>
+        </classes>
+    </test>
+
+    <test name="LogIn">
+        <groups>
+            <run>
+                <include name="logIn"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="TestCases.HomePage_tests"/>
+            <class name="TestCases.ShoppingCart_tests"/>
+            <class name="TestCases.WishList_tests"/>
+
+        </classes>
+    </test>
+</suite>

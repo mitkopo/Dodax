@@ -9,9 +9,10 @@ import org.testng.annotations.Test;
 import java.text.ParseException;
 
 public class Catalog_tests extends baseClass {
+//    public WebDriver driver;
 
-    @Test(priority = 1)
-    public void catalogPageListView() throws ParseException {
+    @Test(priority = 1, groups = {"noLogin"})
+    public void catalogPageListView() throws ParseException, InterruptedException {
         homepagePageFactory homepagePF = new homepagePageFactory(driver);
         categoriesPageFactory catPF = new categoriesPageFactory(driver);
 
@@ -20,9 +21,9 @@ public class Catalog_tests extends baseClass {
 
 
         catPF.clickListView();
+        Thread.sleep(3000);
         Assert.assertTrue(catPF.isListViewSelected());
         Assert.assertTrue(catPF.dropdownSelect());
-
 
 
         homepagePF.openCategory();
@@ -51,7 +52,7 @@ public class Catalog_tests extends baseClass {
 
     }
 
-    @Test(priority = 0)
+    @Test(priority = 0, groups = {"noLogin"})
     public void checkPagination() {
         homepagePageFactory homepagePF = new homepagePageFactory(driver);
         categoriesPageFactory catPF = new categoriesPageFactory(driver);
@@ -63,15 +64,15 @@ public class Catalog_tests extends baseClass {
         Assert.assertTrue(catPF.checkPaginationNumber());
 
     }
-    @Test
-    public void testCheckPagination(){
-        homepagePageFactory homepagePF = new homepagePageFactory(driver);
-        categoriesPageFactory catPF = new categoriesPageFactory(driver);
-
-
-        homepagePF.searchBoxText("book");
-        homepagePF.pressEnterSearhBox();
-        homepagePF.moveToBottom();
-        catPF.testCheckPaginationNumber();
-    }
+//    @Test
+//    public void testCheckPagination(){
+//        homepagePageFactory homepagePF = new homepagePageFactory(driver);
+//        categoriesPageFactory catPF = new categoriesPageFactory(driver);
+//
+//
+//        homepagePF.searchBoxText("book");
+//        homepagePF.pressEnterSearhBox();
+//        homepagePF.moveToBottom();
+//        catPF.testCheckPaginationNumber();
+//    }
 }

@@ -10,11 +10,11 @@ import org.testng.annotations.Test;
 import java.util.Set;
 
 public class HomePage_tests extends baseClass {
-
+//    WebDriver driver;
     //private static Logger log = LogManager.getLogger(homePage.class.getName());
 
 
-    @Test(priority = 0)
+    @Test(priority = 0, groups = {"noLogin"})
     public void privacyPF() {
         homepagePageFactory homepagePF = new homepagePageFactory(driver);
 
@@ -39,7 +39,7 @@ public class HomePage_tests extends baseClass {
 
     }
 
-    @Test(priority = 1)
+    @Test(priority = 1, groups = {"noLogin"})
 
     public void non_existing_product() {
         homepagePageFactory homepagePF = new homepagePageFactory(driver);
@@ -57,7 +57,7 @@ public class HomePage_tests extends baseClass {
     }
 
 
-    @Test(priority = 2)
+    @Test(priority = 2, groups = {"noLogin"})
     public void footerLinks() {
         homepagePageFactory homepagePF = new homepagePageFactory(driver);
 
@@ -65,7 +65,7 @@ public class HomePage_tests extends baseClass {
 
     }
 
-    @Test(priority = 3)
+    @Test(priority = 3, groups = {"noLogin"})
     public void checkDomains() {
         homepagePageFactory homepagePF = new homepagePageFactory(driver);
 

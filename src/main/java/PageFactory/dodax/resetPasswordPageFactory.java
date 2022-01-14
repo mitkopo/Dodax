@@ -1,5 +1,6 @@
 package PageFactory.dodax;
 
+import driverUtils.driverUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,7 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class resetPasswordPageFactory {
-    WebDriver driver;
+    public WebDriver driver;
 
     @FindBy(css = "[data-qa=\"resetPasswordInputEmail\"]")
     WebElement resetPassInput;
@@ -30,7 +31,9 @@ public class resetPasswordPageFactory {
         resetPassInput.sendKeys(text);
     }
     public void clickPassResetButton(){
-        passResetButton.click();
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(passResetButton);
+//        passResetButton.click();
     }
     public boolean isEmailMessageDisplayed(){
         return  resetPassMsg.isDisplayed();

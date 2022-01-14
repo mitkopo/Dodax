@@ -15,13 +15,13 @@ import java.util.List;
 import java.util.Random;
 
 public class shoppingCartPageFactory {
-    WebDriver driver;
+    public WebDriver driver;
 
 
     @FindBy(css = "[class=\"ch-cartPageItem__headingLink text-break\"]")
     WebElement shoppingCartItem;
 
-    @FindBy(css = "[class=\"d-flex align-items-center align-items-md-start justify-content-between justify-content-sm-start flex-row flex-md-column\"]>:last-child")
+    @FindBy(css = "[class=\"icon-trash fs-18 btn-trash__icon ch-cartPageItem__trashIcon\"]")
     List<WebElement> removeShoppingCartItem;
 
     @FindBy(css = "[class=\"d-flex align-items-center align-items-md-start justify-content-between justify-content-sm-start flex-row flex-md-column\"]>:first-of-type")
@@ -48,6 +48,9 @@ public class shoppingCartPageFactory {
     @FindBy(css = "[data-qa=\"cartPageItemQuantity__increase\"]")
     List<WebElement> quantatyPlus;
 
+    @FindBy(css = "[class=\"l-main js-ch-cart js-c-loadingOverlay js-bodyScroller__padding mt-4 mt-lg-5 c-loadingOverlay\"]")
+    WebElement loadedPage;
+
     public shoppingCartPageFactory(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -60,10 +63,11 @@ public class shoppingCartPageFactory {
 
     public void removeShoppingCartItems() {
         driverUtils dU = new driverUtils(driver);
-        int i;
 
-        for (WebElement element : removeShoppingCartItem) {
-            dU.jsClick(element);
+        for (int i = 0; i < removeShoppingCartItem.size(); i++) {
+            dU.jsClick(removeShoppingCartItem.get(i));
+
+
         }
     }
 

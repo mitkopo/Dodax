@@ -2,14 +2,13 @@ package TestCases;
 
 import PageFactory.dodax.*;
 import base.baseClass;
-import driverUtils.driverUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class ProductPage_tests extends baseClass {
 
-    @Test
-    public void viewPPD(){
+    @Test(groups = {"noLogin"})
+    public void viewPPD() {
         homepagePageFactory homepagePF = new homepagePageFactory(driver);
         categoriesPageFactory catPF = new categoriesPageFactory(driver);
 
@@ -19,13 +18,13 @@ public class ProductPage_tests extends baseClass {
         homepagePF.openAllSubCatTree();
         String urlToCheck = catPF.getRandProducthref();
 
-        Assert.assertEquals(urlToCheck,catPF.currentURL());
+        Assert.assertEquals(urlToCheck, catPF.currentURL());
         System.out.println(urlToCheck);
         System.out.println(catPF.currentURL());
 
     }
 
-    @Test
+    @Test(groups = {"noLogin"})
     public void addToCart() {
 
         homepagePageFactory homepagePF = new homepagePageFactory(driver);
@@ -33,7 +32,6 @@ public class ProductPage_tests extends baseClass {
         productDetailsPageFactory productPF = new productDetailsPageFactory(driver);
         shoppingCartPageFactory shopingCardPF = new shoppingCartPageFactory(driver);
         noSearchResultFactory noSearchPF = new noSearchResultFactory(driver);
-        driverUtils dU = new driverUtils(driver);
 
         homepagePF.searchBoxText("dsfasdfds");
         homepagePF.pressEnterSearhBox();
@@ -55,8 +53,7 @@ public class ProductPage_tests extends baseClass {
             shopingCardPF.removeShoppingCartItems();
             Assert.assertTrue(product.contains(shopingCardPF.cartItemText()));
 
-        }
-        else  {
+        } else {
             searchPF.waitForDropDown();
             searchPF.clickFirstSearchResultList();
             Assert.assertTrue(productPF.isAddToCartDisplayed());
@@ -75,8 +72,8 @@ public class ProductPage_tests extends baseClass {
 
     }
 
-    @Test
-    public void addToWishList()  {
+    @Test(groups = {"logIn"})
+    public void addToWishList() {
         productDetailsPageFactory productPF = new productDetailsPageFactory(driver);
         loginPageFactory logInPF = new loginPageFactory(driver);
         homepagePageFactory homePF = new homepagePageFactory(driver);
@@ -86,12 +83,12 @@ public class ProductPage_tests extends baseClass {
         viewPPD();
         productPF.clickWishButton();
         productPF.waitForElement();
-        String product= productPF.getDataProductId();
+        String product = productPF.getDataProductId();
         productPF.clickWishLoginButton();
         logInPF.logIn();
 
         homePF.clickWishListButton();
-        Assert.assertEquals(product,wishPF.getFirstWishListProductDetails());
+        Assert.assertEquals(product, wishPF.getFirstWishListProductDetails());
 
     }
 }

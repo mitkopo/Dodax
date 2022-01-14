@@ -1,5 +1,6 @@
 package PageFactory.dodax;
 
+import driverUtils.driverUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -14,7 +15,6 @@ import java.util.Set;
 public class homepagePageFactory {
 
     WebDriver driver;
-    WebDriverWait wait;
 
     @FindBy(css = "a.c-cookiesDisclaimer__link")
     WebElement privacyPF;
@@ -67,6 +67,13 @@ public class homepagePageFactory {
     @FindBy(css = "[data-qa=\"headerWishlistCounter\"]")
     WebElement wishListCounter;
 
+    @FindBy(css = "[data-qa=\"headerUserNotLoggedIn\"]")
+    WebElement signUpButton;
+
+    @FindBy(css = "[data-qa=\"headerShoppingCartPopUpShoppingCartPageLink\"]")
+    WebElement openCartButton;
+
+
 
 
     public homepagePageFactory(WebDriver driver) {
@@ -76,12 +83,16 @@ public class homepagePageFactory {
     }
 
     public void setPrivacyPF() {
-        privacyPF.click();
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(privacyPF);
+//        privacyPF.click();
 
     }
 
     public void clickCookiesPF() {
-        cookiesPF.click();
+//        cookiesPF.click();
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(cookiesPF);
     }
 
 
@@ -117,6 +128,11 @@ public class homepagePageFactory {
         String parentId = it.next();
         String childId = it.next();
         driver.switchTo().window(childId);
+    }
+
+    public void signUpButton(){
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(signUpButton);
     }
 
     //
@@ -213,8 +229,11 @@ public class homepagePageFactory {
     }
 
     public void openCategoryAll() {
-        categoryTree.click();
-        categoryS2.click();
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(categoryTree);
+        dU.jsClick(categoryS2);
+//        categoryTree.click();
+//        categoryS2.click();
     }
 
     public void test2() {
@@ -223,15 +242,21 @@ public class homepagePageFactory {
     }
 
     public void openCategory() {
-        categoryTree.click();
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(categoryTree);
+//        categoryTree.click();
     }
 
     public void openCatMovies() {
-        categoryMovies.click();
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(categoryMovies);
+//        categoryMovies.click();
     }
 
     public void openAllSubCatTree() {
-        subCatShowAllProducts.click();
+        driverUtils driverUtils = new driverUtils(driver);
+        driverUtils.jsClick(subCatShowAllProducts);
+//        subCatShowAllProducts.click();
     }
 
     public void waitForTree() {
@@ -240,11 +265,15 @@ public class homepagePageFactory {
     }
 
     public void clickWishListButton() {
-        wishListButton.click();
+        driverUtils driverUtils = new driverUtils(driver);
+        driverUtils.jsClick(wishListButton);
+//        wishListButton.click();
     }
 
     public void clickBackToAllcat() {
-        backToAllCategories.click();
+        driverUtils driverUtils = new driverUtils(driver);
+        driverUtils.jsClick(backToAllCategories);
+//        backToAllCategories.click();
     }
 
     public void moveToBottom() {
@@ -271,11 +300,27 @@ public class homepagePageFactory {
         return bc;
     }
     public void clickCartButton() {
-        cartButton.click();
+        driverUtils driverUtils = new driverUtils(driver);
+        driverUtils.jsClick(cartButton);
+//        cartButton.click();
     }
 
     public String getWishListCounter(){
         return wishListCounter.getText();
+    }
+
+    public String getWishListHref(){
+        driverUtils dU = new driverUtils(driver);
+        return dU.getHref(wishListButton);
+    }
+    public void waitForWishListCounter(){
+        driverUtils dU = new driverUtils(driver);
+        dU.waitForElementToBeVisible(wishListButton);
+    }
+
+    public void openCart(){
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(openCartButton);
     }
 }
 

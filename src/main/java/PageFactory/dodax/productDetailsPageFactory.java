@@ -45,6 +45,8 @@ public class productDetailsPageFactory {
     @FindBy(css = "main[data-product-price]")
     WebElement productPrice;
 
+    @FindBy(css = "[class=\"ml-1 c-wishlistToggler__text js-c-wishlistToggler__text\"")
+    WebElement removeFromWishList;
     public productDetailsPageFactory(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -57,7 +59,9 @@ public class productDetailsPageFactory {
     }
 
     public void quantatyPlusButton() {
-        qtyBtnPlus.click();
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(qtyBtnPlus);
+//        qtyBtnPlus.click();
     }
 
     public void addToCartButton() {
@@ -99,7 +103,13 @@ public class productDetailsPageFactory {
     }
 
     public void clickWishLoginButton() {
-        wishLoginButton.click();
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(wishLoginButton);
+//        wishLoginButton.click();
+    }
+    public void waitForRemoveFromWishListButton(){
+        driverUtils dU = new driverUtils(driver);
+        dU.waitForElementToBeVisible(removeFromWishList);
     }
 
     public void waitForElement() {

@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Date;
+import java.util.List;
 
 public class driverUtils extends baseClass {
     WebDriver driver;
@@ -59,7 +60,7 @@ public class driverUtils extends baseClass {
         return foo;
     }
 
-    public void waitForElement(WebElement element) {
+    public void waitForElementToBeVisible(WebElement element) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         wait.until(ExpectedConditions.visibilityOf(element));
     }
@@ -69,4 +70,18 @@ public class driverUtils extends baseClass {
         return totalPrices;
 
     }
+    public void waitForUrlToLoad(String URL) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        wait.until(ExpectedConditions.urlContains(URL));
+    }
+
+    public String getHref(WebElement element){
+       return element.getAttribute("href");
+    }
+
+    public void waitForVisibilityListOfElements(List<WebElement> element) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        wait.until(ExpectedConditions.visibilityOfAllElements(element));
+    }
+
 }

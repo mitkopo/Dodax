@@ -1,5 +1,6 @@
 package PageFactory.dodax;
 
+import driverUtils.driverUtils;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -58,6 +59,19 @@ public class wishListPageFactory {
         wait.until(ExpectedConditions.visibilityOf(emptyWishList));
     }
 
+    public void emptyWishList(){
+        loginPageFactory loginPF= new loginPageFactory(driver);
+        homepagePageFactory homepagePF = new homepagePageFactory(driver);
+        categoriesPageFactory catPF = new categoriesPageFactory(driver);
+        productDetailsPageFactory productPF = new productDetailsPageFactory(driver);
+        wishListPageFactory wishListPF = new wishListPageFactory(driver);
+        driverUtils dU = new driverUtils(driver);
 
 
+        homepagePF.clickWishListButton();
+
+        wishListPF.removeWishListItems();
+        wishListPF.waitForEmptyWishList();
+
+    }
 }

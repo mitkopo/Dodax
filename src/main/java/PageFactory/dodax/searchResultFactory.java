@@ -38,7 +38,9 @@ public class searchResultFactory {
     }
 
     public void clickFirstSearchResult(){
-        firstSearchResult.click();
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(firstSearchResult);
+//        firstSearchResult.click();
     }
 
     public void clearSearchBox(){
@@ -51,7 +53,7 @@ public class searchResultFactory {
     }
     public void waitForDropDown(){
         driverUtils dU = new driverUtils(driver);
-        dU.waitForElement(sortDropDown);
+        dU.waitForElementToBeVisible(sortDropDown);
     }
 
 }

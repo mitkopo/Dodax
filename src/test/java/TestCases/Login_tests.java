@@ -10,7 +10,7 @@ public class Login_tests extends baseClass {
 
 
     @Test
-    public void successfulLogin() throws InterruptedException {
+    public void successfulLogin() {
         loginPageFactory loginPF = new loginPageFactory(driver);
         homepagePageFactory homepagePF = new homepagePageFactory(driver);
 
@@ -20,7 +20,6 @@ public class Login_tests extends baseClass {
         loginPF.passInput("Popokatepeltel1@");
         loginPF.loginButton();
         loginPF.verifyLogIn();
-        Thread.sleep(3000);
         Assert.assertTrue(loginPF.verifyLogIn());
         homepagePF.logOut();
     }

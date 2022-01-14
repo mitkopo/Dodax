@@ -1,5 +1,6 @@
 package PageFactory.dodax;
 
+import driverUtils.driverUtils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -42,7 +43,9 @@ public class noSearchResultFactory {
     }
 
     public void clickBackButton(){
-        emptySearchBackButton.click();
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(emptySearchBackButton);
+//        emptySearchBackButton.click();
     }
 
     public boolean emptySearchResult(){

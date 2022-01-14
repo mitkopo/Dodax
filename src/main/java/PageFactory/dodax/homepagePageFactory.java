@@ -1,5 +1,6 @@
 package PageFactory.dodax;
 
+import driverUtils.driverUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -76,12 +77,16 @@ public class homepagePageFactory {
     }
 
     public void setPrivacyPF() {
-        privacyPF.click();
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(privacyPF);
+//        privacyPF.click();
 
     }
 
     public void clickCookiesPF() {
-        cookiesPF.click();
+//        cookiesPF.click();
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(categoryTree);
     }
 
 
@@ -213,8 +218,11 @@ public class homepagePageFactory {
     }
 
     public void openCategoryAll() {
-        categoryTree.click();
-        categoryS2.click();
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(categoryTree);
+        dU.jsClick(categoryS2);
+//        categoryTree.click();
+//        categoryS2.click();
     }
 
     public void test2() {
@@ -223,15 +231,21 @@ public class homepagePageFactory {
     }
 
     public void openCategory() {
-        categoryTree.click();
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(categoryTree);
+//        categoryTree.click();
     }
 
     public void openCatMovies() {
-        categoryMovies.click();
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(categoryMovies);
+//        categoryMovies.click();
     }
 
     public void openAllSubCatTree() {
-        subCatShowAllProducts.click();
+        driverUtils driverUtils = new driverUtils(driver);
+        driverUtils.jsClick(subCatShowAllProducts);
+//        subCatShowAllProducts.click();
     }
 
     public void waitForTree() {
@@ -240,11 +254,15 @@ public class homepagePageFactory {
     }
 
     public void clickWishListButton() {
-        wishListButton.click();
+        driverUtils driverUtils = new driverUtils(driver);
+        driverUtils.jsClick(wishListButton);
+//        wishListButton.click();
     }
 
     public void clickBackToAllcat() {
-        backToAllCategories.click();
+        driverUtils driverUtils = new driverUtils(driver);
+        driverUtils.jsClick(backToAllCategories);
+//        backToAllCategories.click();
     }
 
     public void moveToBottom() {
@@ -271,7 +289,9 @@ public class homepagePageFactory {
         return bc;
     }
     public void clickCartButton() {
-        cartButton.click();
+        driverUtils driverUtils = new driverUtils(driver);
+        driverUtils.jsClick(cartButton);
+//        cartButton.click();
     }
 
     public String getWishListCounter(){

@@ -5,9 +5,9 @@
             <class name="TestCases.HomePage_tests"/>
             <class name="TestCases.Login_tests"/>
             <class name="TestCases.ProductPage_tests"/>
-            <class name="TestCases.Catalog_tests">
-
-
+            <class name="TestCases.Catalog_tests"/>
+            <class name="TestCases.WishList_tests"/>
+            <class name="TestCases.ShoppingCart_tests">
             </class>
         </classes>
     </test>

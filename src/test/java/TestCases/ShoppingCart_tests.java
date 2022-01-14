@@ -19,7 +19,6 @@ public class ShoppingCart_tests extends baseClass {
         homepagePageFactory homepagePF = new homepagePageFactory(driver);
         categoriesPageFactory catPF = new categoriesPageFactory(driver);
         productDetailsPageFactory productPF = new productDetailsPageFactory(driver);
-        wishListPageFactory wishListPF = new wishListPageFactory(driver);
         shoppingCartPageFactory shoppingCartPF = new shoppingCartPageFactory(driver);
         loginPageFactory loginPF = new loginPageFactory(driver);
         driverUtils dU = new driverUtils(driver);
@@ -53,6 +52,7 @@ public class ShoppingCart_tests extends baseClass {
         Assert.assertNotEquals(beforeRemovingItem, afterRemovingItem);
         shoppingCartPF.clickAddToWishList();
         shoppingCartPF.waitForWishListAddItemUpdate();
+        Thread.sleep(3000);
         Assert.assertNotEquals(afterRemovingItem, dU.checkCounter(homepagePF.getWishListCounter()));
 
 
@@ -67,6 +67,7 @@ public class ShoppingCart_tests extends baseClass {
         shoppingCartPageFactory shoppingCartPF = new shoppingCartPageFactory(driver);
 
 
+/// wait for url
 
         homepagePF.openCategoryAll();
         catPF.randomCategory();
@@ -111,6 +112,7 @@ public class ShoppingCart_tests extends baseClass {
         Assert.assertEquals(sum, shoppingCartPF.totalPrice());
 
         //updating random quantaty
+        shoppingCartPF.pressRandomPlusQuantatyButton();
         shoppingCartPF.pressRandomPlusQuantatyButton();
 
         //each product total price is eqaual to the price displayed

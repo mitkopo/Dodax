@@ -1,11 +1,9 @@
 package base;
 
-import PageFactory.dodax.homepagePageFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
 
 public class baseClass {
 
@@ -24,16 +22,20 @@ public class baseClass {
 
     }
 
-    @BeforeTest
-    public void setOff(){
-        homepagePageFactory homepagePF = new homepagePageFactory(driver);
-
-        homepagePF.clickCookiesPF();
-    }
+//    @BeforeTest
+//    public void setOff(){
+//        homepagePageFactory homepagePF = new homepagePageFactory(driver);
+//
+//        homepagePF.clickCookiesPF();
+//
+//    }
 
     @AfterSuite
     public  void closeBrowser(){
-        driver.quit();
+//        driver.quit();
 
     }
+
+
+
 }

@@ -130,11 +130,15 @@ public class categoriesPageFactory {
     }
 
     public void clickComputers() {
-        computers.click();
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(computers);
+//        computers.click();
     }
 
     public void clickClothes() {
-        clothes.click();
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(clothes);
+//        clothes.click();
     }
 
 
@@ -222,7 +226,9 @@ public class categoriesPageFactory {
     }
 
     public void clickBabyNChild() {
-        babuAndChild.click();
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(babuAndChild);
+//        babuAndChild.click();
     }
 
 

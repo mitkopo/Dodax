@@ -99,7 +99,9 @@ public class productDetailsPageFactory {
     }
 
     public void clickWishLoginButton() {
-        wishLoginButton.click();
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(wishLoginButton);
+//        wishLoginButton.click();
     }
 
     public void waitForElement() {

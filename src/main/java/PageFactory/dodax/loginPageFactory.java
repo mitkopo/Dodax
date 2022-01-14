@@ -1,6 +1,7 @@
 package PageFactory.dodax;
 
 import base.baseClass;
+import driverUtils.driverUtils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -46,7 +47,9 @@ public class loginPageFactory extends baseClass {
     }
 
     public void loginButton(){
-        loginButton.click();
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(loginButton);
+//        loginButton.click();
     }
 
 

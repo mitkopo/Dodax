@@ -63,15 +63,15 @@ public class Catalog_tests extends baseClass {
         Assert.assertTrue(catPF.checkPaginationNumber());
 
     }
-    @Test
-    public void testCheckPagination(){
-        homepagePageFactory homepagePF = new homepagePageFactory(driver);
-        categoriesPageFactory catPF = new categoriesPageFactory(driver);
-
-
-        homepagePF.searchBoxText("book");
-        homepagePF.pressEnterSearhBox();
-        homepagePF.moveToBottom();
-        catPF.testCheckPaginationNumber();
-    }
+//    @Test
+//    public void testCheckPagination(){
+//        homepagePageFactory homepagePF = new homepagePageFactory(driver);
+//        categoriesPageFactory catPF = new categoriesPageFactory(driver);
+//
+//
+//        homepagePF.searchBoxText("book");
+//        homepagePF.pressEnterSearhBox();
+//        homepagePF.moveToBottom();
+//        catPF.testCheckPaginationNumber();
+//    }
 }

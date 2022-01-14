@@ -29,6 +29,7 @@ public class baseClass {
         homepagePageFactory homepagePF = new homepagePageFactory(driver);
 
         homepagePF.clickCookiesPF();
+        //test
     }
 
     @AfterSuite
@@ -36,4 +37,7 @@ public class baseClass {
         driver.quit();
 
     }
+
+
+
 }

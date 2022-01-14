@@ -62,9 +62,9 @@ public class loginPageFactory extends baseClass {
             System.out.println("User is logged In");
 
         }
-  return b;  }
+        return b;  }
     public String urlAfterLogin(){
-      return  driver.getCurrentUrl();
+        return  driver.getCurrentUrl();
     }
 
     public void clickForgotpassButton(){
@@ -82,9 +82,9 @@ public class loginPageFactory extends baseClass {
 
     public boolean e2eLoginOnSamePage(){
         Boolean b;
-       String urlBeforeLogin = urlBeforeLogIn();
+        String urlBeforeLogin = urlBeforeLogIn();
         notloggedIn();
-       emailInput("botearnasp@gmail.com");
+        emailInput("botearnasp@gmail.com");
         passInput("Popokatepeltel1@");
         loginButton();
         urlAfterLogin();

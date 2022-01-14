@@ -8,8 +8,11 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.text.DecimalFormat;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class shoppingCartPageFactory {
     WebDriver driver;
@@ -30,11 +33,20 @@ public class shoppingCartPageFactory {
     @FindBy(css = "[class=\"d-md-flex d-lg-block justify-content-end\"]>:first-child")
     List<WebElement> prices;
 
-    @FindBy(css = "span[title=\"ADD TO WISHLIST\"]")
+    @FindBy(css = "button[data-qa*='wishlist']")
     WebElement wishListUpdate;
 
-    @FindBy(css = "[class=\"c-wishlistToggler js-c-wishlistToggler btn-reset c-wishlistToggler--small c-wishlistToggler--active\"]")
+    @FindBy(css = "button[data-qa*='wishlist']")
     WebElement wishListAddItemUpdate;
+
+    @FindBy(css = "[data-qa-price-total]")
+    WebElement totalPrice;
+
+    @FindBy(css = "h2[data-qa-item-price]")
+    List<WebElement> priceAndQuantaty;
+
+    @FindBy(css = "[data-qa=\"cartPageItemQuantity__increase\"]")
+    List<WebElement> quantatyPlus;
 
     public shoppingCartPageFactory(WebDriver driver) {
         this.driver = driver;
@@ -65,7 +77,7 @@ public class shoppingCartPageFactory {
         wait.until(ExpectedConditions.visibilityOf(loginPopUp));
     }
 
-    public void waitForWishListRemoveItemUpdate(){
+    public void waitForWishListRemoveItemUpdate() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         wait.until(ExpectedConditions.visibilityOf(wishListUpdate));
     }
@@ -75,23 +87,63 @@ public class shoppingCartPageFactory {
         dU.jsClick(loginPopUp);
     }
 
-    public void waitForWishListAddItemUpdate(){
+    public void waitForWishListAddItemUpdate() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         wait.until(ExpectedConditions.visibilityOf(wishListAddItemUpdate));
     }
 
-    public double sumTotalPrice() {
-        double sum = 0;
-        for (int i = 0; i < prices.size(); i++) {
-            String text = prices.get(i).getText();
-            double[] foo = new double[prices.size()];
-            foo[i] = Double.parseDouble(text);
-            sum = sum + foo[i];
+    public List<Double> sumTotalEachProductPrice() {
+        driverUtils dU = new driverUtils(driver);
+        List<Double> total = new ArrayList<>();
+        for (double i = 0; priceAndQuantaty.size() > i; i++) {
+            double price = dU.getDouble(priceAndQuantaty.get((int) i).getAttribute("data-qa-item-price"));
+            double quantaty = dU.getDouble(priceAndQuantaty.get((int) i).getAttribute("data-qa-quantity"));
+            total.add(price * quantaty);
 
-            return sum;
         }
-        System.out.println(sum);
-        return sum;
+        return total;
+    }
+    public double sumTotalPrice() {
+
+
+        double totalPrice = sumTotalEachProductPrice().stream().mapToDouble(Double::doubleValue).sum();
+
+        DecimalFormat f = new DecimalFormat("#.##");
+        double bc = Double.parseDouble(f.format(totalPrice));
+        return bc;
+
+    }
+    public double totalPrice() {
+        driverUtils dU = new driverUtils(driver);
+        return dU.getDouble(totalPrice.getAttribute("data-qa-price-total"));
     }
 
+    public void pressRandomPlusQuantatyButton() {
+        driverUtils dU = new driverUtils(driver);
+        Random rnd = new Random();
+        int i = rnd.nextInt(quantatyPlus.size());
+
+        dU.jsClick(quantatyPlus.get(i));
+    }
+
+    public List<Double> prices() {
+
+        driverUtils dU = new driverUtils(driver);
+        List<Double> total = new ArrayList<>();
+        for (double i = 0; priceAndQuantaty.size() > i; i++) {
+            double price = dU.getDouble(priceAndQuantaty.get((int) i).getAttribute("data-qa-item-price"));
+            total.add(price);
+        }
+        return total;
+    }
+
+    public List<Double> eachProductTotalPrice(){
+        driverUtils dU = new driverUtils(driver);
+        List<Double> total = new ArrayList<>();
+        for (double i = 0; priceAndQuantaty.size() > i; i++) {
+            double price = dU.getDouble(priceAndQuantaty.get((int) i).getAttribute("data-qa-total-price"));
+            total.add(price);
+        }
+        return total;
+    }
 }

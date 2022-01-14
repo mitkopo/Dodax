@@ -21,10 +21,10 @@ public class wishListPageFactory {
     WebElement wishListItemText;
 
 
-    @FindBy(css = "[class=\"w-100 d-flex justify-content-between flex-column flex-md-row align-items-end\"]>:first-child")
+    @FindBy(css = "div[class=\"up-wishlistPageItem__btnsWrapper\"]>div>button[data-qa]>i")
     List<WebElement> removeWishListItems;
 
-    @FindBy(css = "[class=\"mr-4\"]")
+    @FindBy(css = "img[src*='emptyWishlist-21cdaf0353a8fcc89c61a2426a96c4e4.png']")
     WebElement emptyWishList;
 
 
@@ -37,12 +37,12 @@ public class wishListPageFactory {
 
     public String getFirstWishListProductDetails(){
         String bc = firstWishListProduct.getAttribute("data-product-id");
-       return bc;
+        return bc;
     }
 
     public void removeWishListItems(){
         JavascriptExecutor executor = (JavascriptExecutor) driver;
-
+        System.out.println(removeWishListItems.size());
         for (WebElement element : removeWishListItems) {
             executor.executeScript("arguments[0].click();", element);
         }

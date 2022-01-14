@@ -261,14 +261,14 @@ public class homepagePageFactory {
         Boolean bc = null;
         try {
             bc = cartButton.isDisplayed();
-             return bc;
+            return bc;
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Cart is 0");
             bc = false;
 
         }
-    return bc;
+        return bc;
     }
     public void clickCartButton() {
         cartButton.click();

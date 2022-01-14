@@ -74,7 +74,7 @@ public class categoriesPageFactory {
     @FindBy(css = "[data-qa=\"pagination\"]")
     WebElement pagination;
 
-    @FindBy(css = "ul[class=\"c-pagination__list\"]>li")
+    @FindBy(css = "ul[class=\"c-pagination__list\"]>li>a")
     List<WebElement> pageListNumbers;
 
     public categoriesPageFactory(WebDriver driver) {
@@ -108,9 +108,9 @@ public class categoriesPageFactory {
         return products.get(randomProduct());
     }
 
-    public void clickRandomProduct(){
+    public void clickRandomProduct() {
         driverUtils dU = new driverUtils(driver);
-       dU.jsClick(getRandProduct());
+        dU.jsClick(getRandProduct());
     }
 
     public String getRandProducthref() {
@@ -231,28 +231,29 @@ public class categoriesPageFactory {
     }
 
 
-    public void testCheckPaginationNumber() {
+    public boolean testCheckPaginationNumber() {
         homepagePageFactory homepagePF = new homepagePageFactory(driver);
         driverUtils dU = new driverUtils(driver);
 
         int i;
         Boolean b = null;
 
-        for (WebElement element : pageListNumbers) {
-            System.out.println(element);
-            System.out.println(getPagehRef(element));
-            b = getPagehRef(element).contains(currentURL());
+
+        for (i = 0; i < pageListNumbers.size(); i++) {
+            System.out.println(pageListNumbers.get(i).getAttribute("href"));
+            b = pageListNumbers.get(i).getAttribute("href").contains(currentURL());
             if (b == true) {
-                dU.jsClick(element);
-                b = getPagehRef(element).equals(currentURL());
+                dU.jsClick(pageListNumbers.get(i));
+                b = pageListNumbers.get(i++).getAttribute("href").equals(currentURL());
                 waitForElement(pagination);
                 homepagePF.moveToBottom();
-
-
+                dU.jsClick(pageListNumbers.get(i));
+//                return b;
             }
         }
 
 
+        return b;
     }
 
     public boolean checkPaginationNumber() {

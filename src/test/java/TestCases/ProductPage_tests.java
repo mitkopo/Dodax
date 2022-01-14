@@ -2,6 +2,7 @@ package TestCases;
 
 import PageFactory.dodax.*;
 import base.baseClass;
+import driverUtils.driverUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -18,37 +19,61 @@ public class ProductPage_tests extends baseClass {
         homepagePF.openAllSubCatTree();
         String urlToCheck = catPF.getRandProducthref();
 
-      Assert.assertEquals(urlToCheck,catPF.currentURL());
+        Assert.assertEquals(urlToCheck,catPF.currentURL());
         System.out.println(urlToCheck);
         System.out.println(catPF.currentURL());
 
     }
 
     @Test
-    public void addToCart()   {
+    public void addToCart() {
 
         homepagePageFactory homepagePF = new homepagePageFactory(driver);
         searchResultFactory searchPF = new searchResultFactory(driver);
         productDetailsPageFactory productPF = new productDetailsPageFactory(driver);
         shoppingCartPageFactory shopingCardPF = new shoppingCartPageFactory(driver);
+        noSearchResultFactory noSearchPF = new noSearchResultFactory(driver);
+        driverUtils dU = new driverUtils(driver);
 
-        homepagePF.searchBoxText("A2R4V574SMF");
+        homepagePF.searchBoxText("dsfasdfds");
         homepagePF.pressEnterSearhBox();
-        searchPF.clickFirstSearchResultList();
-        Assert.assertTrue(productPF.isAddToCartDisplayed());
-        String itemCartSizeBeforeAdd = productPF.getCartItemSize() ;
-        productPF.quantatyPlusButton();
-        String product = productPF.pageTitle();
-        System.out.println(product);
-        productPF.addToCartButton();
-        productPF.waitForCart();
-        productPF.iSCartItemSizeDisplayed();
-        Assert.assertFalse(itemCartSizeBeforeAdd.equals(productPF.getCartItemSize()));
-        productPF.viewShoppingCart();
-        shopingCardPF.removeShoppingCartItems();
-        Assert.assertTrue(product.contains(shopingCardPF.cartItemText()));
-    }
+        if (noSearchPF.isBackButtonDisplayed() == true) {
+            searchPF.clearSearchBox();
+            homepagePF.searchBoxText("A2R4V574SMF");
+            homepagePF.pressEnterSearhBox();
+            searchPF.clickFirstSearchResultList();
+            Assert.assertTrue(productPF.isAddToCartDisplayed());
+            String itemCartSizeBeforeAdd = productPF.getCartItemSize();
+            productPF.quantatyPlusButton();
+            String product = productPF.pageTitle();
+            System.out.println(product);
+            productPF.addToCartButton();
+            productPF.waitForCart();
+            productPF.iSCartItemSizeDisplayed();
+            Assert.assertFalse(itemCartSizeBeforeAdd.equals(productPF.getCartItemSize()));
+            productPF.viewShoppingCart();
+            shopingCardPF.removeShoppingCartItems();
+            Assert.assertTrue(product.contains(shopingCardPF.cartItemText()));
 
+        }
+        else  {
+            searchPF.waitForDropDown();
+            searchPF.clickFirstSearchResultList();
+            Assert.assertTrue(productPF.isAddToCartDisplayed());
+            String itemCartSizeBeforeAdd = productPF.getCartItemSize();
+            productPF.quantatyPlusButton();
+            String product = productPF.pageTitle();
+            System.out.println(product);
+            productPF.addToCartButton();
+            productPF.waitForCart();
+            productPF.iSCartItemSizeDisplayed();
+            Assert.assertFalse(itemCartSizeBeforeAdd.equals(productPF.getCartItemSize()));
+            productPF.viewShoppingCart();
+            shopingCardPF.removeShoppingCartItems();
+            Assert.assertTrue(product.contains(shopingCardPF.cartItemText()));
+        }
+
+    }
 
     @Test
     public void addToWishList()  {

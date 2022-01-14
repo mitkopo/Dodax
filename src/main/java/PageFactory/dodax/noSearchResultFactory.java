@@ -1,5 +1,6 @@
 package PageFactory.dodax;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -28,8 +29,13 @@ public class noSearchResultFactory {
     }
 
     public boolean isBackButtonDisplayed(){
-        return emptySearchBackButton.isDisplayed();
+        try {
+            return emptySearchBackButton.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
     }
+
 
     public boolean isCarouselDisplayed(){
         return carousel.isDisplayed();
@@ -45,10 +51,8 @@ public class noSearchResultFactory {
 
 
     public String emptySearchBackButton(){
-         String href = emptySearchBackButton.getAttribute("href");
-    return href;
-
-
+        String href = emptySearchBackButton.getAttribute("href");
+        return href;
     }
 
 }

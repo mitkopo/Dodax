@@ -42,6 +42,9 @@ public class productDetailsPageFactory {
     @FindBy(css = "button.c-buttonAddToCart--success")
     WebElement realWaitForCart;
 
+    @FindBy(css = "main[data-product-price]")
+    WebElement productPrice;
+
     public productDetailsPageFactory(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -58,7 +61,9 @@ public class productDetailsPageFactory {
     }
 
     public void addToCartButton() {
-        addToCart.click();
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(addToCart);
+//        addToCart.click();
     }
 
     public String getCartItemSize() {
@@ -125,4 +130,10 @@ public class productDetailsPageFactory {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(4));
         wait.until(ExpectedConditions.visibilityOf(realWaitForCart));
     }
+
+    public double getItemPrice(){
+        double price = Double.parseDouble(productPrice.getAttribute("data-product-price"));
+        return price;
+    }
+
 }

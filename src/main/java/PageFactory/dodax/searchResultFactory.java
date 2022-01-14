@@ -1,5 +1,6 @@
 package PageFactory.dodax;
 
+import driverUtils.driverUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -19,6 +20,9 @@ public class searchResultFactory {
     @FindBy(css = "div[class='c-frontOfPack js-c-frontOfPack js-c-fopOffer c-frontOfPack--list']:first-of-type>div.c-frontOfPack__imageWrapper")
     WebElement firstSearchResult;
 
+    @FindBy(css = "[data-qa=\"headerSearchBtnClear\"]")
+    WebElement clearSearchBox;
+
 
 
 
@@ -28,10 +32,26 @@ public class searchResultFactory {
     }
 
     public void clickFirstSearchResultList() {
+//        driverUtils dU = new driverUtils(driver);
+//        dU.jsClick(searchResultList.get(0));
         searchResultList.get(0).click();
     }
 
     public void clickFirstSearchResult(){
         firstSearchResult.click();
     }
+
+    public void clearSearchBox(){
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(clearSearchBox);
+    }
+
+    public boolean isDropDownDisplayed(){
+        return sortDropDown.isDisplayed();
+    }
+    public void waitForDropDown(){
+        driverUtils dU = new driverUtils(driver);
+        dU.waitForElement(sortDropDown);
+    }
+
 }

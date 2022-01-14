@@ -33,7 +33,7 @@ public class resetPasswordPageFactory {
         passResetButton.click();
     }
     public boolean isEmailMessageDisplayed(){
-      return  resetPassMsg.isDisplayed();
+        return  resetPassMsg.isDisplayed();
     }
     public void waitElement() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));

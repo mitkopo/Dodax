@@ -23,6 +23,15 @@ public class searchResultFactory {
     @FindBy(css = "[data-qa=\"headerSearchBtnClear\"]")
     WebElement clearSearchBox;
 
+    @FindBy(css = "[class=\"btn-reset js-c-buttonAddToCart c-buttonAddToCartIconType c-frontOfPack__linkClickable\"]")
+    WebElement addToCart;
+
+    @FindBy(css = "[data-qa=\"headerShoppingCartLink\"]")
+    WebElement viewCart;
+
+    @FindBy(css = "[data-qa=\"headerShoppingCartPopUpCheckoutLink\"]")
+    WebElement checkout;
+
 
 
 
@@ -57,4 +66,18 @@ public class searchResultFactory {
         dU.waitForElementToBeVisible(sortDropDown);
     }
 
+    public void addToCart(){
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(addToCart);
+    }
+
+    public void viewCart(){
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(viewCart);
+    }
+
+    public void clickChekout(){
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(checkout);
+    }
 }

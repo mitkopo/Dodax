@@ -73,6 +73,12 @@ public class homepagePageFactory {
     @FindBy(css = "[data-qa=\"headerShoppingCartPopUpShoppingCartPageLink\"]")
     WebElement openCartButton;
 
+    @FindBy(css = "[data-qa=\"headerUserLoggedIn\"]")
+    WebElement avatar;
+
+    @FindBy(css = "[data-qa=\"headerUserAccountPopUpAddressesLink\"]")
+    WebElement avatarAddress;
+
 
 
 
@@ -328,6 +334,17 @@ public class homepagePageFactory {
         driverUtils dU = new driverUtils(driver);
         dU.jsClick(openCartButton);
     }
+
+    public void clickAvatarPopUpMenu(){
+        driverUtils dU= new driverUtils(driver);
+        dU.jsClick(avatar);
+    }
+
+    public void clickAvatarPopUpAddress(){
+        driverUtils dU= new driverUtils(driver);
+        dU.jsClick(avatarAddress);
+    }
+
 }
 
 

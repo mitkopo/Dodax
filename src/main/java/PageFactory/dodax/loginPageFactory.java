@@ -9,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class loginPageFactory extends baseClass {
-    public WebDriver driver;
+    WebDriver driver;
 
     @FindBy(css = "[data-qa=\"headerUserNotLoggedIn\"]")
     WebElement notLogged;

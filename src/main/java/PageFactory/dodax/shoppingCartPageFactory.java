@@ -49,7 +49,10 @@ public class shoppingCartPageFactory {
     List<WebElement> quantatyPlus;
 
     @FindBy(css = "[class=\"l-main js-ch-cart js-c-loadingOverlay js-bodyScroller__padding mt-4 mt-lg-5 c-loadingOverlay\"]")
-    WebElement loadedPage;
+    WebElement loadedPage;;
+
+    @FindBy(css = "[data-qa=\"checkoutSideboxNextStepBtn\"]")
+    WebElement checkout;
 
     public shoppingCartPageFactory(WebDriver driver) {
         this.driver = driver;
@@ -149,5 +152,10 @@ public class shoppingCartPageFactory {
             total.add(price);
         }
         return total;
+    }
+
+    public void clickCheckoutButton(){
+        driverUtils dU = new driverUtils(driver);
+        dU.jsClick(checkout);
     }
 }

@@ -23,7 +23,6 @@ public class categoriesPageFactory {
     @FindBy(css = "[data-qa=\"searchResultPageProductLink\"]")
     List<WebElement> products;
 
-//    @FindBy(css = "")
 
     @FindBy(xpath = "//*[ contains (text(),\"Computers\")]")
     WebElement computers;
@@ -120,9 +119,7 @@ public class categoriesPageFactory {
 
         WebElement prodInfo = getRandProduct();
         String prodInfoHref = prodInfo.getAttribute("href");
-
         dU.jsClick(prodInfo);
-
         return prodInfoHref;
     }
 
@@ -134,27 +131,22 @@ public class categoriesPageFactory {
     public void clickComputers() {
         driverUtils dU = new driverUtils(driver);
         dU.jsClick(computers);
-//        computers.click();
     }
 
     public void clickClothes() {
         driverUtils dU = new driverUtils(driver);
         dU.jsClick(clothes);
-//        clothes.click();
     }
 
 
     public void clickListView() {
         driverUtils dU = new driverUtils(driver);
 
-
         dU.jsClick(listView);
-
     }
 
     public boolean isListViewSelected() {
         return listViewSelected.isDisplayed();
-
     }
 
     public boolean dropdownSelect() throws ParseException {
@@ -231,7 +223,7 @@ public class categoriesPageFactory {
     public void clickBabyNChild() {
         driverUtils dU = new driverUtils(driver);
         dU.jsClick(babuAndChild);
-//        babuAndChild.click();
+
     }
 
 

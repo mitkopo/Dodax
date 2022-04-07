@@ -9,19 +9,17 @@ import org.testng.annotations.Test;
 import java.text.ParseException;
 
 public class Catalog_tests extends baseClass {
-//    public WebDriver driver;
+
 
     @Test(priority = 1, groups = {"noLogin"})
-    public void catalogPageListView() throws ParseException, InterruptedException {
+    public void catalogPageListView() throws ParseException {
         homepagePageFactory homepagePF = new homepagePageFactory(driver);
         categoriesPageFactory catPF = new categoriesPageFactory(driver);
 
         homepagePF.openCategoryAll();
         catPF.clickComputers();
-
-
         catPF.clickListView();
-        Thread.sleep(3000);
+        catPF.waitForPagination();
         Assert.assertTrue(catPF.isListViewSelected());
         Assert.assertTrue(catPF.dropdownSelect());
 
@@ -41,14 +39,6 @@ public class Catalog_tests extends baseClass {
         Assert.assertTrue(catPF.dropdownSelect());
 
 
-        //System.out.println(catPF.isListViewSelected());
-        // problemi so lokatori, ne vrakja dobro za isSelected i isDisplayed
-        // koristeni lokatori [class="c-viewSwitch__button js-c-viewSwitch__button--list btn-reset c-viewSwitch__button--activeView"]
-        // [data-qa="searchResultPageGridViewIcon"]
-        // [data-qa="searchResultPageListViewIcon"]
-
-        // [class=\"c-viewSwitch__icon icon-list-view\"]"
-
 
     }
 
@@ -60,19 +50,8 @@ public class Catalog_tests extends baseClass {
 
         homepagePF.searchBoxText("book");
         homepagePF.pressEnterSearhBox();
-        homepagePF.moveToBottom();
-        Assert.assertTrue(catPF.checkPaginationNumber());
+        catPF.checkPagination();
 
     }
-//    @Test
-//    public void testCheckPagination(){
-//        homepagePageFactory homepagePF = new homepagePageFactory(driver);
-//        categoriesPageFactory catPF = new categoriesPageFactory(driver);
-//
-//
-//        homepagePF.searchBoxText("book");
-//        homepagePF.pressEnterSearhBox();
-//        homepagePF.moveToBottom();
-//        catPF.testCheckPaginationNumber();
-//    }
+
 }

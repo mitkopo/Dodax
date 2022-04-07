@@ -8,13 +8,14 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 import java.text.ParseException;
 import java.time.Duration;
 import java.util.*;
 
 public class categoriesPageFactory {
-   public WebDriver driver;
+    public WebDriver driver;
 
 
     @FindBy(xpath = "//div[@class=\"cat-categories\"]//a")
@@ -69,14 +70,29 @@ public class categoriesPageFactory {
     @FindBy(xpath = "((//a[@class='c-pagination__link js-c-pagination__item']) [5])")
     WebElement threeForwardDots;
 
-    @FindBy(xpath = "((//a[@class='c-pagination__link js-c-pagination__item']) [3])")
-    WebElement lastPage;
-
     @FindBy(css = "[data-qa=\"pagination\"]")
     WebElement pagination;
 
     @FindBy(css = "ul[class=\"c-pagination__list\"]>li>a")
     List<WebElement> pageListNumbers;
+
+    @FindBy(css = "[data-qa=\"paginationLink\"]")
+    List<WebElement> paginationLinks;
+
+    @FindBy(css = "[data-qa=\"paginationLinkActive\"]")
+    WebElement currentPage;
+
+    @FindBy(css = "[data-qa=\"paginationLinkPrev\"]")
+    WebElement backButton;
+
+    @FindBy(xpath = "//a[contains(text(),'...')]")
+    List<WebElement> theDots;
+
+    @FindBy(css = "[data-qa=\"pagination\"]>ul>li:nth-last-child(2)>a")
+    WebElement lastPage;
+
+    @FindBy(css = "[data-qa=\"pagination\"]>ul>li:nth-child(2)>a")
+    WebElement firstPage;
 
     public categoriesPageFactory(WebDriver driver) {
         this.driver = driver;
@@ -174,7 +190,7 @@ public class categoriesPageFactory {
                     driver.navigate().back();
                     return dates;
                 } else if (dates == false) {
-                    System.out.println("Sorting by Newes Release date test has failed");
+                    System.out.println("Sorting by Newes Release date areNotificationsDisplayed has failed");
 
                 }
 
@@ -231,133 +247,64 @@ public class categoriesPageFactory {
         return element.getAttribute("href");
     }
 
-
-    public boolean testCheckPaginationNumber() {
-        homepagePageFactory homepagePF = new homepagePageFactory(driver);
+    public void checkPagination() {
         driverUtils dU = new driverUtils(driver);
 
-        int i;
-        Boolean b = null;
-
-
-        for (i = 0; i < pageListNumbers.size(); i++) {
-            System.out.println(pageListNumbers.get(i).getAttribute("href"));
-            b = pageListNumbers.get(i).getAttribute("href").contains(currentURL());
-            if (b == true) {
-                dU.jsClick(pageListNumbers.get(i));
-                b = pageListNumbers.get(i++).getAttribute("href").equals(currentURL());
-                waitForElement(pagination);
-                homepagePF.moveToBottom();
-                dU.jsClick(pageListNumbers.get(i));
-//                return b;
-            }
-        }
-
-
-        return b;
-    }
-
-    public boolean checkPaginationNumber() {
-        homepagePageFactory homepagePF = new homepagePageFactory(driver);
-        Boolean b;
-
-
-        System.out.println(currentURL());
-        b = getPagehRef(page1).contains(currentURL());
-        driverUtils dU = new driverUtils(driver);
-
-
-        if (b == true) {
+//      Testing the first 4 pages of the pagination and checking if the right one is loading;
+        do {
+            Assert.assertTrue(dU.getHref(currentPage).contains(currentURL()));
+            dU.jsClick(continueButton);
             waitForElement(pagination);
-            homepagePF.moveToBottom();
-            dU.jsClick(page2);
+        }
+        while (paginationLinks.size() < 6);
 
-
-            if (b == true) {
-                b = getPagehRef(page2).equals(currentURL());
-
-                System.out.println("Page 2 currenturl " + currentURL());
-                waitForElement(pagination);
-                homepagePF.moveToBottom();
-                dU.jsClick(page3);
-
-
-                if (b == true) {
-                    b = getPagehRef(page3).equals(currentURL());
-
-                    System.out.println("Page 3 currenturl " + currentURL());
-                    waitForElement(pagination);
-                    homepagePF.moveToBottom();
-                    dU.jsClick(page4);
-
-
-                    if (b == true) {
-                        b = getPagehRef(page4).contains(currentURL());
-                        waitForElement(pagination);
-                        homepagePF.moveToBottom();
-                        System.out.println("Page 4 currenturl " + currentURL());
-                        if (b == true) {
-                            String continueButtonhRef = getPagehRef(continueButton);
-                            dU.jsClick(continueButton);
-                            b = continueButtonhRef.equals(currentURL());
-
-                            if (b == true) {
-                                String threeDotsBack = getPagehRef(threeBackDots);
-                                waitForElement(pagination);
-                                homepagePF.moveToBottom();
-                                System.out.println("Three back dots url is: " + threeDotsBack);
-                                dU.jsClick(threeBackDots);
-
-                                b = threeDotsBack.equals(currentURL());
-
-                                if (b == true) {
-                                    String threeDotsForward = getPagehRef(threeForwardDots);
-                                    waitForElement(pagination);
-                                    homepagePF.moveToBottom();
-                                    System.out.println("Three forward dots url is: " + threeDotsForward);
-                                    dU.jsClick(threeForwardDots);
-                                    b = threeDotsForward.equals(currentURL());
-
-                                    if (b == true) {
-                                        String firstPageNumber = getPagehRef(page1);
-                                        waitForElement(pagination);
-                                        homepagePF.moveToBottom();
-                                        System.out.println("The first page link is: " + firstPageNumber);
-                                        dU.jsClick(page1);
-                                        b = firstPageNumber.equals(currentURL());
-
-                                        if (b == true) {
-                                            String lastPageNumber = getPagehRef(lastPage);
-                                            waitForElement(pagination);
-                                            homepagePF.moveToBottom();
-                                            System.out.println("last page link is: " + lastPageNumber);
-                                            dU.jsClick(lastPage);
-                                            b = lastPageNumber.equals(currentURL());
-
-                                        }
-
-                                    }
-                                }
-                            }
-
-                        }
-
-                        return b;
-                    }
-                }
-            }
-            return b;
+//      Testing the Continue and Back button;
+        List<WebElement> backAndContinueButton = new ArrayList<WebElement>();
+        backAndContinueButton.add(continueButton);
+        backAndContinueButton.add(backButton);
+        for (WebElement element : backAndContinueButton) {
+            waitForElement(pagination);
+            String b = element.getAttribute("href");
+            System.out.println(b);
+            dU.jsClick(element);
+            waitForElement(pagination);
+            Assert.assertEquals(b, currentURL());
         }
 
-        return b;
+//      Testing three dots ... , the work as Continue and Back button;
+        waitForElement(pagination);
+        String b = dU.getHref(theDots.get(1));
+        System.out.println(b);
+        dU.jsClick(theDots.get(1));
+        waitForElement(pagination);
+        Assert.assertEquals(b, currentURL());
+        String c = dU.getHref(theDots.get(0));
+        System.out.println(c);
+        dU.jsClick(theDots.get(0));
+        waitForElement(pagination);
+        Assert.assertEquals(c, currentURL());
+//      Testing the First and Last Page button;
+        List<WebElement> firstAndLastPage = new ArrayList<WebElement>();
+        firstAndLastPage.add(firstPage);
+        firstAndLastPage.add(lastPage);
+        for (WebElement element : firstAndLastPage) {
+            waitForElement(pagination);
+            String d = dU.getHref(element);
+            System.out.println(d);
+            dU.jsClick(element);
+            waitForElement(pagination);
+            Assert.assertEquals(d, currentURL());
+        }
     }
-    public void waitForSearchResultToLoad(){
-        driverUtils dU = new driverUtils(driver);
-        dU.waitForVisibilityListOfElements(products);
-    }
-    public void waitForFirstSearchResultToLoad(){
+
+
+    public void waitForFirstSearchResultToLoad() {
         driverUtils dU = new driverUtils(driver);
         dU.waitForElementToBeVisible(products.get(0));
+    }
+
+    public void waitForPagination(){
+        waitForElement(pagination);
     }
 }
 

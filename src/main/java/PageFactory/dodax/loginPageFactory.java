@@ -39,7 +39,6 @@ public class loginPageFactory extends baseClass {
         homepagePageFactory homepagePF = new homepagePageFactory(driver);
         try{
 
-
         dU.jsClick(notLogged);}
         catch (NoSuchElementException e){
             System.out.println("user is logged in");
@@ -47,7 +46,7 @@ public class loginPageFactory extends baseClass {
             System.out.println("has been logged out");
             dU.jsClick(notLogged);
         }
-//
+
     }
 
     public void emailInput(String text){
@@ -61,7 +60,6 @@ public class loginPageFactory extends baseClass {
     public void loginButton(){
         driverUtils dU = new driverUtils(driver);
         dU.jsClick(loginButton);
-//        loginButton.click();
     }
 
 
@@ -85,14 +83,13 @@ public class loginPageFactory extends baseClass {
     public void clickForgotpassButton(){
         driverUtils dU = new driverUtils(driver);
         dU.jsClick(forgotpassButton);
-//        forgotpassButton.click();
     }
 
     public void clickSignUpForFree(){
         driverUtils dU = new driverUtils(driver);
         dU.jsClick(signUp);
-//        signUp.click();
     }
+
     public String urlBeforeLogIn() {
         String currentURL = driver.getCurrentUrl();
         return currentURL;
@@ -103,8 +100,8 @@ public class loginPageFactory extends baseClass {
         Boolean b;
         String urlBeforeLogin = urlBeforeLogIn();
         notloggedIn();
-        emailInput("botearnasp@gmail.com");
-        passInput("Popokatepeltel1@");
+        emailInput("kiki.ritki123@gmail.com");
+        passInput("bogdanci1");
         loginButton();
         urlAfterLogin();
         b= urlBeforeLogin.equals(urlAfterLogin());
@@ -113,8 +110,8 @@ public class loginPageFactory extends baseClass {
 
     public void logIn(){
         try{
-            emailInput("botearnasp@gmail.com");
-            passInput("Popokatepeltel1@");
+            emailInput("kiki.ritki123@gmail.com");
+            passInput("bogdanci1");
             loginButton();
             }
         catch (NoSuchElementException e){

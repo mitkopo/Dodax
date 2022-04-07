@@ -91,12 +91,10 @@ public class homepagePageFactory {
     public void setPrivacyPF() {
         driverUtils dU = new driverUtils(driver);
         dU.jsClick(privacyPF);
-//        privacyPF.click();
 
     }
 
     public void clickCookiesPF() {
-//        cookiesPF.click();
         driverUtils dU = new driverUtils(driver);
         dU.jsClick(cookiesPF);
     }
@@ -106,27 +104,15 @@ public class homepagePageFactory {
         return copyrightPF.isDisplayed();
     }
 
+    public void waitForCopyright(){
+        driverUtils dU = new driverUtils(driver);
+        dU.isClickable(copyrightPF);
+    }
+
     public Set<Cookie> getCookies() {
         return driver.manage().getCookies();
 
     }
-
-//    public static String getMainWindowHandle(WebDriver driver) {
-//        String window;
-//        return  window = driver.getWindowHandle();
-//    }
-//
-//    public static void waitForNewWindowAndSwitchToIt(WebDriver driver) throws InterruptedException {
-//        String cHandle = driver.getWindowHandle();
-//        String newWindowHandle = null;
-//        Set<String> allWindowHandles = driver.getWindowHandles();
-//        if (allWindowHandles.size() > 1) {
-//            for (String allHandlers : allWindowHandles) {
-//                if (!allHandlers.equals(cHandle))
-//                    newWindowHandle = allHandlers;
-//            }
-//            driver.switchTo().window(newWindowHandle);
-//             }}
 
     public void windowsHandlessChild() {
         Set<String> windows = driver.getWindowHandles();
@@ -182,7 +168,6 @@ public class homepagePageFactory {
                     windowsHandlessChild();
 
                     if (currentURL().equals(sfooterLinks)) {
-                        // Assert.assertEquals(currentURL(),secondLinks);
                         System.out.println("If block The link is good ");
                         System.out.println(driver.getCurrentUrl());
                         System.out.println(sfooterLinks);
@@ -216,7 +201,6 @@ public class homepagePageFactory {
                 executor.executeScript("arguments[0].click();", domains.get(i));
 
                 if (currentURL().contains(domainLinks)) {
-                    System.out.println("The link is good");
                     driver.navigate().back();
                     equals = true;
                 }
@@ -233,7 +217,6 @@ public class homepagePageFactory {
         driverUtils dU = new driverUtils(driver);
         try {
             dU.jsClick(logOutButton);
-//            executor.executeScript("arguments[0].click();", logOutButton);
         } catch (NoSuchElementException e){
             System.out.println("User is logged out");
         }
@@ -244,8 +227,6 @@ public class homepagePageFactory {
         driverUtils dU = new driverUtils(driver);
         dU.jsClick(categoryTree);
         dU.jsClick(categoryS2);
-//        categoryTree.click();
-//        categoryS2.click();
     }
 
     public void test2() {
@@ -256,20 +237,17 @@ public class homepagePageFactory {
     public void openCategory() {
         driverUtils dU = new driverUtils(driver);
         dU.jsClick(categoryTree);
-//        categoryTree.click();
     }
 
     public void openCatMovies() {
         driverUtils dU = new driverUtils(driver);
         dU.jsClick(categoryMovies);
-//        categoryMovies.click();
-    }
+}
 
     public void openAllSubCatTree() {
         driverUtils driverUtils = new driverUtils(driver);
         driverUtils.jsClick(subCatShowAllProducts);
-//        subCatShowAllProducts.click();
-    }
+ }
 
     public void waitForTree() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
@@ -279,42 +257,16 @@ public class homepagePageFactory {
     public void clickWishListButton() {
         driverUtils driverUtils = new driverUtils(driver);
         driverUtils.jsClick(wishListButton);
-//        wishListButton.click();
-    }
+ }
 
     public void clickBackToAllcat() {
         driverUtils driverUtils = new driverUtils(driver);
         driverUtils.jsClick(backToAllCategories);
-//        backToAllCategories.click();
-    }
+ }
 
-    public void moveToBottom() {
-        JavascriptExecutor executor = (JavascriptExecutor) driver;
-        executor.executeScript("window.scrollTo(0, document.body.scrollHeight)");
-
-    }
-
-    public void obsoleteClick() {
-        obseleteClick.click();
-    }
-
-    public boolean cartButtonCounter() {
-        Boolean bc = null;
-        try {
-            bc = cartButton.isDisplayed();
-            return bc;
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Cart is 0");
-            bc = false;
-
-        }
-        return bc;
-    }
     public void clickCartButton() {
         driverUtils driverUtils = new driverUtils(driver);
         driverUtils.jsClick(cartButton);
-//        cartButton.click();
     }
 
     public String getWishListCounter(){
@@ -344,7 +296,6 @@ public class homepagePageFactory {
         driverUtils dU= new driverUtils(driver);
         dU.jsClick(avatarAddress);
     }
-
 }
 
 

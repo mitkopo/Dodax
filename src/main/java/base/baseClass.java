@@ -1,9 +1,6 @@
 package base;
 
-import PageFactory.dodax.homepagePageFactory;
-import PageFactory.dodax.loginPageFactory;
-import PageFactory.dodax.shoppingCartPageFactory;
-import PageFactory.dodax.wishListPageFactory;
+import PageFactory.dodax.*;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import org.apache.commons.io.FileUtils;
@@ -27,6 +24,7 @@ public class baseClass {
     public Properties prop;
     public ExtentReports extent = ExtentReporter.getReportObject();
     public static ExtentTest test;
+    public static final String testDataExcelFileName = "testData.xlsx";
 
     public WebDriver initailizeDriver() throws IOException {
 
@@ -46,11 +44,12 @@ public class baseClass {
         return driver;
     }
 
-    @BeforeTest
+    @BeforeTest(alwaysRun = true)
 
     public void initialize() throws IOException {
         driver = initailizeDriver();
         driver.get(prop.getProperty("url"));
+        driver.manage().window().maximize();
     }
 
     //private static Logger log = LogManager.getLogger(homePage_test.class.getName());
@@ -64,18 +63,8 @@ public class baseClass {
         return destinationFile;
     }
 
-//    @BeforeSuite(alwaysRun = true)
-//    public void setUp() {
-//        System.setProperty("webdriver.chrome.driver", "C:exe\\chromedriver.exe");
-//        driver = new ChromeDriver();
-//        String baseURL = "https://www.dodax.ca";
-//        driver.get(baseURL);
-//        driver.manage().window().maximize();
 
 
-//    }
-
-    //    Moze da ima 2 before test, edniot so atributi i edniot be atributi;
     @BeforeTest(groups = {"logIn"})
     public void setOff() {
         homepagePageFactory homepagePF = new homepagePageFactory(driver);
@@ -91,10 +80,24 @@ public class baseClass {
         wishListPF.waitForEmptyWishList();
         homepagePF.openCart();
         shoppingPF.removeShoppingCartItems();
-        loginPF.logOut();
+        homepagePF.logOut();
 
     }
 
+
+    @AfterTest(groups = {"NoDeleteAddress"})
+
+    public void deleteCurrentAddress(){
+        loginPageFactory loginPF = new loginPageFactory(driver);
+        homepagePageFactory homepagePF = new homepagePageFactory(driver);
+        addressPageFactory addressPF = new addressPageFactory(driver);
+
+        loginPF.notloggedIn();
+        loginPF.logIn();
+        homepagePF.clickAvatarPopUpMenu();
+        homepagePF.clickAvatarPopUpAddress();
+        addressPF.deleteAllAddress();
+    }
 
     @AfterTest(alwaysRun = true)
     public void logOut() {

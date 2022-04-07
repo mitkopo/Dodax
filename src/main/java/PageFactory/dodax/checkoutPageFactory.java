@@ -18,6 +18,10 @@ public class checkoutPageFactory extends baseClass {
     @FindBy(css = "[data-qa=\"checkoutItemShippingAddressSelect\"]")
     List<WebElement> changeDeliveryAddress;
 
+    @FindBy(css = "[data-qa=\"checkoutAddressesContainer\"]>div>address:nth-child(2)")
+    WebElement secondAddress;
+
+
     public checkoutPageFactory(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -36,6 +40,11 @@ public class checkoutPageFactory extends baseClass {
         for(int i = 1; i == changeDeliveryAddress.size();){
             dU.jsClick(changeDeliveryAddress.get(i));
         }
+    }
+
+    public void waitForNewAddress(){
+        driverUtils dU = new driverUtils(driver);
+        dU.waitForElementToBeVisible(secondAddress);
     }
 
 }

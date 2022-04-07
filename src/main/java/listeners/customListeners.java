@@ -21,14 +21,14 @@ public class customListeners extends baseClass implements ITestListener {
 
     @Override
     public void onTestStart(ITestResult result) {
-        // When test method starts
+        // When areNotificationsDisplayed method starts
         test = extent.createTest(result.getMethod().getMethodName());
         extentTest.set(test);
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        // If test method is successful
+        // If areNotificationsDisplayed method is successful
         extentTest.get().log(Status.PASS, "Test Passed");
     }
 
@@ -55,7 +55,7 @@ public class customListeners extends baseClass implements ITestListener {
 
     @Override
     public void onTestSkipped(ITestResult result) {
-        // If test method is failed
+        // If areNotificationsDisplayed method is failed
     }
 
     @Override
@@ -65,7 +65,7 @@ public class customListeners extends baseClass implements ITestListener {
 
     @Override
     public void onStart(ITestContext context) {
-        // Before <test> tag of xml file
+        // Before <areNotificationsDisplayed> tag of xml file
 
     }
 
